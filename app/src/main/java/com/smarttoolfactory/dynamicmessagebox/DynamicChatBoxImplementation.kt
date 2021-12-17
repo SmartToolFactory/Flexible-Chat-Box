@@ -5,7 +5,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.Icon
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Done
@@ -14,12 +17,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.smarttoolfactory.lib.DynamicChatBox
+import com.smarttoolfactory.lib.DynamicWidthLayout
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.random.Random
@@ -76,6 +81,7 @@ fun DynamicMessageRow(
     messageTime: String,
     messageStatus: MessageStatus
 ) {
+    // Whole column that contains chat bubble and padding on start or end
     Column(
         horizontalAlignment = Alignment.End,
         modifier = Modifier
@@ -83,24 +89,32 @@ fun DynamicMessageRow(
             .wrapContentHeight()
             .padding(top = 2.dp, bottom = 2.dp)
             .background(Color.LightGray)
+            .padding(start = 60.dp, end = 8.dp)
     ) {
-        Column(
+
+
+        // This is chat bubble
+        DynamicWidthLayout(
             modifier = Modifier
-                .padding(start = 60.dp, end = 8.dp)
                 .shadow(1.dp, RoundedCornerShape(8.dp))
                 .clip(RoundedCornerShape(8.dp))
                 .background(Color(0xffDCF8C6))
+                .padding(4.dp),
+
+            mainContent = {
+                // 💬 Quoted message
+                QuotedMessage()
+            }
         ) {
 
-//            QuotedMessage()
+            println("📝 DynamicWidthLayout() in dependent() IntSize: $it")
 
             var color by remember {
                 mutableStateOf(Color.Blue)
             }
+
             DynamicChatBox(
                 modifier = Modifier
-//                    .fillMaxWidth()
-                    .width(200.dp)
                     .background(color),
                 text = text,
                 messageStat = {
@@ -117,10 +131,13 @@ fun DynamicMessageRow(
                         2 -> Color.Green
                         else -> Color.Magenta
                     }
-                    println("🔥 CHAT ROW DATA: $chatRowData")
-                }
+                    println("🔥 IMPLEMENTATION-> $chatRowData")
+                },
+//                parentWidth = it.width
             )
+
         }
+
     }
 }
 
@@ -129,21 +146,22 @@ fun QuotedMessage() {
     val color = remember { getRandomColor() }
     Row(
         modifier = Modifier
-            .padding(top = 4.dp, start = 4.dp, end =4.dp)
-            .fillMaxWidth()
+            .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+            .clipToBounds()
+//            .height(IntrinsicSize.Min)
             .background(Color(0xffC0CA33), shape = RoundedCornerShape(8.dp))
     ) {
 
-        Surface(
-            color = color,
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(4.dp)
-        ) {}
+//        Divider(
+//            color = color,
+//            modifier = Modifier.fillMaxHeight().width(3.dp))
 
-        Column(modifier = Modifier.fillMaxWidth().padding(2.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(2.dp)
+        ) {
             Text("You", color = color, fontWeight = FontWeight.Bold)
-            Text("Quoted message")
+            Text("Quoted long message")
         }
     }
 }
