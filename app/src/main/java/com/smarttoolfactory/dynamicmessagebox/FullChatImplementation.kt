@@ -5,10 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Done
@@ -17,7 +14,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -31,7 +27,7 @@ import kotlin.random.Random
 
 
 @Composable
-fun DynamicChatBoxImplementation() {
+fun FullChatImplementation() {
 
     val messages = remember { mutableStateListOf<ChatMessage>() }
     val sdf = remember { SimpleDateFormat("hh:mm a", Locale.ROOT) }
@@ -102,12 +98,19 @@ fun DynamicMessageRow(
 
             mainContent = {
                 // 💬 Quoted message
-                QuotedMessage()
+                QuotedMessage(
+                    modifier = Modifier
+                        .padding(top = 2.dp, start = 2.dp, end = 2.dp)
+                        .height(IntrinsicSize.Min)
+                        .background(Color(0xffcde6b8), shape = RoundedCornerShape(8.dp))
+                        .clip(shape = RoundedCornerShape(8.dp))
+                )
             }
         ) {
 
-            println("📝 DynamicWidthLayout() in dependent()"
-                    + " IntSize: $it"
+            println(
+                "📝 DynamicWidthLayout() in dependent()"
+                        + " IntSize: $it"
             )
 
             var color by remember {
@@ -115,7 +118,7 @@ fun DynamicMessageRow(
             }
 
             DynamicChatBox(
-                modifier = Modifier.background(color),
+//                modifier = Modifier.background(color),
                 text = text,
                 messageStat = {
                     MessageTimeText(
@@ -124,36 +127,34 @@ fun DynamicMessageRow(
                         messageStatus = messageStatus
                     )
                 },
-                onMeasured = { chatRowData ->
-                    color = when (chatRowData.measuredType) {
-                        0 -> Color.Blue
-                        1 -> Color.Red
-                        2 -> Color.Green
-                        else -> Color.Magenta
-                    }
-                    println("🔥 IMPLEMENTATION-> $chatRowData")
-                },
+//                onMeasured = { chatRowData ->
+//                    color = when (chatRowData.measuredType) {
+//                        0 -> Color.Blue
+//                        1 -> Color.Red
+//                        2 -> Color.Green
+//                        else -> Color.Magenta
+//                    }
+//                    println("🔥 IMPLEMENTATION-> $chatRowData")
+//                },
             )
-
         }
-
     }
 }
 
 @Composable
-fun QuotedMessage() {
+fun QuotedMessage(modifier: Modifier = Modifier) {
     val color = remember { getRandomColor() }
     Row(
-        modifier = Modifier
-            .padding(top = 4.dp, start = 4.dp, end = 4.dp)
-            .clipToBounds()
-//            .height(IntrinsicSize.Min)
-            .background(Color(0xffC0CA33), shape = RoundedCornerShape(8.dp))
+        modifier = modifier
     ) {
 
-//        Divider(
-//            color = color,
-//            modifier = Modifier.fillMaxHeight().width(3.dp))
+        Surface(
+            color = color,
+            modifier = Modifier
+                .fillMaxHeight()
+                .width(3.dp)
+        ) {
+        }
 
         Column(
             modifier = Modifier

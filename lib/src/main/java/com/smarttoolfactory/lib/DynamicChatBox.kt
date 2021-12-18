@@ -49,6 +49,18 @@ fun DynamicChatBox(
         Message(
             modifier = Modifier,
             text = text,
+            color = color,
+            fontSize = fontSize,
+            fontStyle = fontStyle,
+            fontWeight = fontWeight,
+            fontFamily = fontFamily,
+            letterSpacing = letterSpacing,
+            textDecoration = textDecoration,
+            textAlign = textAlign,
+            lineHeight = lineHeight,
+            overflow = overflow,
+            softWrap = softWrap,
+            maxLines = maxLines,
             onTextLayout = { textLayoutResult ->
                 chatRowData.lineCount = textLayoutResult.lineCount
                 chatRowData.lastLineWidth =
@@ -86,16 +98,15 @@ fun DynamicChatBox(
             calculateChatWidthAndHeight(text, chatRowData, message, status)
             // Parent width of this chat row is either result of width calculation
             // or quote or other sibling width if they are longer than calculated width.
-//            chatRowData.parentWidth =
-//                chatRowData.width.coerceAtLeast(minimumValue = constraints.minWidth)
+            chatRowData.parentWidth =
+                chatRowData.width.coerceAtLeast(minimumValue = constraints.minWidth)
         }
 
-        chatRowData.parentWidth =
-            chatRowData.width.coerceAtLeast(minimumValue = constraints.minWidth)
-
-        println("⚠️⚠️ CHAT constraints.minWidth: ${constraints.minWidth}, " +
-                "max: ${constraints.maxWidth}, " +
-                "CHAT_ROW_DATA: $chatRowData")
+        println(
+            "⚠️⚠️ CHAT constraints.minWidth: ${constraints.minWidth}, " +
+                    "max: ${constraints.maxWidth}, " +
+                    "CHAT_ROW_DATA: $chatRowData"
+        )
 
         // Send measurement results if requested by Composable
         onMeasured?.invoke(chatRowData)
@@ -215,7 +226,7 @@ private fun Message(
 }
 
 
-class ChatRowData(
+data class ChatRowData(
     var lastLineWidth: Float = 0f,
     var lineCount: Int = 0,
     var width: Int = 0,
@@ -223,6 +234,7 @@ class ChatRowData(
     var parentWidth: Int = 0,
     var measuredType: Int = 0,
 ) {
+
 
     override fun toString(): String {
         return "ChatRowData lastLineWidth: $lastLineWidth, lineCount: $lineCount, " +

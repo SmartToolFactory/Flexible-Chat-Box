@@ -48,10 +48,11 @@ fun DynamicWidthLayout(
             dependentPlaceables.maxOf { it.width }
         } else maxSize.width
 
-        println("✏️ DynamicWidthLayout() maxSize width: ${maxSize.width}, height: ${maxSize.height}, maxWidth: $maxWidth")
+        println("✏️ DynamicWidthLayout() maxSize " +
+                "width: ${maxSize.width}, height: ${maxSize.height}, maxWidth: $maxWidth")
 
         // If width of dependent composable is longer than main one, remeasure main one
-        // with dependent composable's width using it as minimumWidthConstraint
+        // with dependent composable's width using it as minWidth of Constraint
         if (!mainPlaceables.isNullOrEmpty() && maxWidth > maxSize.width) {
 
             println(
@@ -95,7 +96,6 @@ fun DynamicWidthLayout(
                     posY += it.height
                 }
             }
-
         }
     }
 }
