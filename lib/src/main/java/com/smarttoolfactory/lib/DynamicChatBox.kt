@@ -70,28 +70,42 @@ fun DynamicChatBox(
         println("⚠️ CHAT const maxWidth: ${constraints.maxWidth}, min: ${constraints.minWidth}")
 
         val placeables: List<Placeable> = measurables.map { measurable ->
-            // Measure each child
+            // Measure each child maximum constraints since message can cover all of the available
+            // space by parent
             measurable.measure(Constraints(0, constraints.maxWidth))
         }
 
         val message = placeables.first()
         val status = placeables.last()
 
+        // calculate chat row dimensions are not  based on message and status positions
         if (chatRowData.width == 0 || chatRowData.height == 0) {
+            // Constrain wit max width instead of longest sibling
+            // since this composable can be longest of siblings after calculation
             chatRowData.parentWidth = constraints.maxWidth
             calculateChatWidthAndHeight(text, chatRowData, message, status)
-            chatRowData.parentWidth = chatRowData.width.coerceAtLeast(minimumValue = constraints.minWidth)
+            // Parent width of this chat row is either result of width calculation
+            // or quote or other sibling width if they are longer than calculated width.
+//            chatRowData.parentWidth =
+//                chatRowData.width.coerceAtLeast(minimumValue = constraints.minWidth)
         }
 
-        println("⚠️⚠️ CHAT parentWidth: ${constraints.minWidth}, CHAT_ROW_DATA: $chatRowData")
+        chatRowData.parentWidth =
+            chatRowData.width.coerceAtLeast(minimumValue = constraints.minWidth)
+
+        println("⚠️⚠️ CHAT constraints.minWidth: ${constraints.minWidth}, " +
+                "max: ${constraints.maxWidth}, " +
+                "CHAT_ROW_DATA: $chatRowData")
 
         // Send measurement results if requested by Composable
         onMeasured?.invoke(chatRowData)
 
-        layout(width = chatRowData.parentWidth , height = chatRowData.height) {
+        layout(width = chatRowData.parentWidth, height = chatRowData.height) {
 
-            println("⚠️⚠️⚠️ CHAT layout() status x: ${chatRowData.parentWidth - status.width}, " +
-                    "y: ${chatRowData.height - status.height}")
+            println(
+                "⚠️⚠️⚠️ CHAT layout() status x: ${chatRowData.parentWidth - status.width}, " +
+                        "y: ${chatRowData.height - status.height}"
+            )
 
             message.placeRelative(0, 0)
             status.placeRelative(

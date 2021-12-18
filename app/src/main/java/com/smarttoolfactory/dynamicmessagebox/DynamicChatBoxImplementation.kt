@@ -53,7 +53,6 @@ fun DynamicChatBoxImplementation() {
             items(messages) { message: ChatMessage ->
 
                 val messageStatus = remember { MessageStatus.values()[Random.nextInt(3)] }
-//                val messageStatus = MessageStatus.values()[Random.nextInt(3)]
 
                 DynamicMessageRow(
                     text = message.message,
@@ -107,15 +106,16 @@ fun DynamicMessageRow(
             }
         ) {
 
-            println("📝 DynamicWidthLayout() in dependent() IntSize: $it")
+            println("📝 DynamicWidthLayout() in dependent()"
+                    + " IntSize: $it"
+            )
 
             var color by remember {
                 mutableStateOf(Color.Blue)
             }
 
             DynamicChatBox(
-                modifier = Modifier
-                    .background(color),
+                modifier = Modifier.background(color),
                 text = text,
                 messageStat = {
                     MessageTimeText(
@@ -133,7 +133,6 @@ fun DynamicMessageRow(
                     }
                     println("🔥 IMPLEMENTATION-> $chatRowData")
                 },
-//                parentWidth = it.width
             )
 
         }
