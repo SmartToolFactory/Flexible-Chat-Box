@@ -39,7 +39,7 @@ fun DynamicChatBox(
     overflow: TextOverflow = TextOverflow.Clip,
     softWrap: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,
-    messageStat: @Composable () -> Unit,
+    messageStat: @Composable () -> Unit = {},
     onMeasured: ((ChatRowData) -> Unit)? = null
 ) {
     val chatRowData = remember { ChatRowData() }
@@ -65,6 +65,7 @@ fun DynamicChatBox(
                 chatRowData.lineCount = textLayoutResult.lineCount
                 chatRowData.lastLineWidth =
                     textLayoutResult.getLineRight(chatRowData.lineCount - 1)
+                println("☕ DynamicChatBox() text: $text, DATA: $chatRowData️")
             }
         )
 
@@ -91,7 +92,7 @@ fun DynamicChatBox(
         val status = placeables.last()
 
         // calculate chat row dimensions are not  based on message and status positions
-        if (chatRowData.width == 0 || chatRowData.height == 0) {
+        if ((chatRowData.width == 0 || chatRowData.height == 0) || chatRowData.text != text) {
             // Constrain wit max width instead of longest sibling
             // since this composable can be longest of siblings after calculation
             chatRowData.parentWidth = constraints.maxWidth
@@ -137,7 +138,6 @@ private fun calculateChatWidthAndHeight(
     val lineCount = chatRowData.lineCount
     val lastLineWidth = chatRowData.lastLineWidth
     val parentWidth = chatRowData.parentWidth
-
 
     if (status == null) {
         chatRowData.width = message.width
@@ -227,6 +227,7 @@ private fun Message(
 
 
 data class ChatRowData(
+    var text:String = "",
     var lastLineWidth: Float = 0f,
     var lineCount: Int = 0,
     var width: Int = 0,

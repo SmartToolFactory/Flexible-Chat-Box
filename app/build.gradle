@@ -62,6 +62,7 @@ dependencies {
     implementation "androidx.compose.runtime:runtime:$compose_version"
 
     implementation 'com.google.accompanist:accompanist-systemuicontroller:0.21.3-beta'
+    implementation 'com.google.accompanist:accompanist-pager:0.21.3-beta'
 
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
     implementation 'androidx.activity:activity-compose:1.4.0'

@@ -13,6 +13,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.Blue400
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.Green400
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.Orange400
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.Pink400
 import com.smarttoolfactory.lib.DynamicWidthLayout
 
 @Composable
@@ -66,13 +70,13 @@ fun DynamicWidthImplementation() {
 
                 Column(
                     modifier = Modifier
-                        .background(orange400)
+                        .background(Orange400)
                         .padding(4.dp)
                 ) {
                     Text(
                         text = mainText.text,
                         modifier = Modifier
-                            .background(blue400)
+                            .background(Blue400)
                             .height(40.dp),
                         color = Color.White
                     )
@@ -80,13 +84,13 @@ fun DynamicWidthImplementation() {
 
                 Column(
                     modifier = Modifier
-                        .background(orange400)
+                        .background(Orange400)
                         .padding(4.dp)
                 ) {
                     Text(
                         text = "Second text",
                         modifier = Modifier
-                            .background(blue400),
+                            .background(Blue400),
                         color = Color.White
                     )
                 }
@@ -109,15 +113,15 @@ fun DynamicWidthImplementation() {
                 )
 
                 Column(
-                    modifier = androidx.compose.ui.Modifier
-                        .background(pink400)
+                    modifier = Modifier
+                        .background(Pink400)
                         .padding(4.dp)
                 ) {
 
                     Text(
                         text = dependentText.text,
-                        modifier = androidx.compose.ui.Modifier
-                            .background(green400),
+                        modifier = Modifier
+                            .background(Green400),
                         color = Color.White
                     )
                 }
@@ -141,8 +145,3 @@ fun DynamicWidthImplementation() {
         )
     }
 }
-
-val orange400 = Color(0xffFFA726)
-val blue400 = Color(0xff42A5F5)
-val pink400 = Color(0xffEC407A)
-val green400 = Color(0xff66BB6A)

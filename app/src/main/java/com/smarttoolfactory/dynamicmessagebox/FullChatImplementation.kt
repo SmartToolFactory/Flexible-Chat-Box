@@ -1,6 +1,7 @@
 package com.smarttoolfactory.dynamicmessagebox
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.smarttoolfactory.lib.DynamicChatBox
@@ -30,7 +32,7 @@ import kotlin.random.Random
 fun FullChatImplementation() {
 
     val messages = remember { mutableStateListOf<ChatMessage>() }
-    val sdf = remember { SimpleDateFormat("hh:mm a", Locale.ROOT) }
+    val sdf = remember { SimpleDateFormat("hh:mm", Locale.ROOT) }
 
     Column(
         modifier = Modifier
@@ -48,13 +50,23 @@ fun FullChatImplementation() {
         ) {
             items(messages) { message: ChatMessage ->
 
+                // Remember random stats icon to not create at each recomposition
                 val messageStatus = remember { MessageStatus.values()[Random.nextInt(3)] }
 
-                DynamicMessageRow(
-                    text = message.message,
-                    messageTime = sdf.format(message.date),
-                    messageStatus = messageStatus
-                )
+                // Toggle between sent and received message
+                if (message.id.toInt() % 2 == 1) {
+                    SentMessageRow(
+                        text = message.message,
+                        messageTime = sdf.format(message.date),
+                        messageStatus = messageStatus
+                    )
+                } else {
+                    ReceivedMessageRow(
+                        text = message.message,
+                        messageTime = sdf.format(message.date)
+                    )
+                }
+
             }
         }
 
@@ -71,7 +83,7 @@ fun FullChatImplementation() {
 }
 
 @Composable
-fun DynamicMessageRow(
+private fun SentMessageRow(
     text: String,
     messageTime: String,
     messageStatus: MessageStatus
@@ -83,8 +95,9 @@ fun DynamicMessageRow(
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(top = 2.dp, bottom = 2.dp)
-            .background(Color.LightGray)
+//            .background(Color.LightGray)
             .padding(start = 60.dp, end = 8.dp)
+
     ) {
 
 
@@ -94,22 +107,27 @@ fun DynamicMessageRow(
                 .shadow(1.dp, RoundedCornerShape(8.dp))
                 .clip(RoundedCornerShape(8.dp))
                 .background(Color(0xffDCF8C6))
-                .padding(4.dp),
+                .clickable { },
 
             mainContent = {
                 // 💬 Quoted message
                 QuotedMessage(
                     modifier = Modifier
-                        .padding(top = 2.dp, start = 2.dp, end = 2.dp)
+                        .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+                        // 🔥 This is required to set Surface height before text is set
                         .height(IntrinsicSize.Min)
-                        .background(Color(0xffcde6b8), shape = RoundedCornerShape(8.dp))
+                        .background(Color(0xffdfeed2), shape = RoundedCornerShape(8.dp))
                         .clip(shape = RoundedCornerShape(8.dp))
+                        .clickable {
+
+                        },
+                    quotedMessage = "Quoted long message"
                 )
             }
         ) {
 
             println(
-                "📝 DynamicWidthLayout() in dependent()"
+                "📝 SentMessageRow() in dependent()"
                         + " IntSize: $it"
             )
 
@@ -118,7 +136,9 @@ fun DynamicMessageRow(
             }
 
             DynamicChatBox(
-//                modifier = Modifier.background(color),
+                modifier = Modifier
+//                    .background(color)
+                    .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
                 text = text,
                 messageStat = {
                     MessageTimeText(
@@ -142,7 +162,74 @@ fun DynamicMessageRow(
 }
 
 @Composable
-fun QuotedMessage(modifier: Modifier = Modifier) {
+private fun ReceivedMessageRow(text: String, messageTime: String) {
+    // Whole column that contains chat bubble and padding on start or end
+    Column(
+        horizontalAlignment = Alignment.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(top = 2.dp, bottom = 2.dp)
+//            .background(Color.LightGray)
+            .padding(start = 8.dp, end = 60.dp)
+
+    ) {
+
+        // This is chat bubble
+        DynamicWidthLayout(
+            modifier = Modifier
+                .shadow(1.dp, RoundedCornerShape(8.dp))
+                .clip(RoundedCornerShape(8.dp))
+                .background(Color.White)
+                .clickable { },
+
+            mainContent = {
+                // 💬 Quoted message
+                QuotedMessage(
+                    modifier = Modifier
+                        .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+                        // 🔥 This is required to set Surface height before text is set
+                        .height(IntrinsicSize.Min)
+                        .background(Color(0xffECEFF1), shape = RoundedCornerShape(8.dp))
+                        .clip(shape = RoundedCornerShape(8.dp))
+                        .clickable {
+
+                        },
+                    quotedMessage = "Quoted long message"
+                )
+            }
+        ) {
+
+            println(
+                "📝 ReceivedMessageRow() in dependent()"
+                        + " IntSize: $it"
+            )
+
+
+            DynamicChatBox(
+                modifier = Modifier
+                    .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
+                text = text,
+                messageStat = {
+                    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                        Text(
+                            modifier = Modifier
+                                .padding(top = 1.dp, bottom = 1.dp),
+                            text = messageTime,
+                            fontSize = 12.sp
+                        )
+                    }
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun QuotedMessage(
+    modifier: Modifier = Modifier,
+    quotedMessage: String
+) {
     val color = remember { getRandomColor() }
     Row(
         modifier = modifier
@@ -152,16 +239,22 @@ fun QuotedMessage(modifier: Modifier = Modifier) {
             color = color,
             modifier = Modifier
                 .fillMaxHeight()
-                .width(3.dp)
+                .width(4.dp)
         ) {
         }
 
         Column(
-            modifier = Modifier
-                .padding(2.dp)
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
         ) {
-            Text("You", color = color, fontWeight = FontWeight.Bold)
-            Text("Quoted long message")
+            Text("You", color = color, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                Text(
+                    text = quotedMessage,
+                    fontSize = 12.sp,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
     }
 }

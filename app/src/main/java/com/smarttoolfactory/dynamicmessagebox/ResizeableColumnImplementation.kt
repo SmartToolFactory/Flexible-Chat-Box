@@ -14,6 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.Blue400
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.Green400
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.Orange400
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.Pink400
 import com.smarttoolfactory.lib.ResizableColumn
 
 @Composable
@@ -100,25 +104,25 @@ fun ResizableColumnImplementation() {
 
                 Column(
                     modifier = Modifier
-                        .background(orange400)
+                        .background(Orange400)
                         .padding(4.dp)
                 ) {
                     Text(
                         text = text1.text,
-                        modifier = Modifier.background(blue400),
+                        modifier = Modifier.background(Blue400),
                         color = Color.White
                     )
                 }
 
                 Column(
                     modifier = Modifier
-                        .background(pink400)
+                        .background(Pink400)
                         .padding(4.dp)
                 ) {
 
                     Text(
                         text = text2.text,
-                        modifier = Modifier.background(green400),
+                        modifier = Modifier.background(Green400),
                         color = Color.White
                     )
                 }
@@ -126,33 +130,33 @@ fun ResizableColumnImplementation() {
 
                 Column(
                     modifier = Modifier
-                        .background(blue400)
+                        .background(Blue400)
                         .padding(4.dp)
                 ) {
 
                     Text(
                         text = text3.text,
-                        modifier = Modifier.background(pink400),
+                        modifier = Modifier.background(Pink400),
                         color = Color.White
                     )
                 }
 
                 Column(
                     modifier = Modifier
-                        .background(green400)
+                        .background(Green400)
                         .padding(4.dp)
                 ) {
 
                     Text(
                         text = text4.text,
-                        modifier = Modifier.background(orange400),
+                        modifier = Modifier.background(Orange400),
                         color = Color.White
                     )
                 }
 
                 Text(
                     text = text5.text,
-                    modifier = Modifier.background(pink400),
+                    modifier = Modifier.background(Pink400),
                     color = Color.White
                 )
             }
