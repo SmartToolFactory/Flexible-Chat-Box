@@ -27,6 +27,9 @@ import kotlin.random.Random
 fun ChatAndWidthImplementation() {
 
     val sdf = remember { SimpleDateFormat("hh:mm", Locale.ROOT) }
+    var quote by remember { mutableStateOf("Quote") }
+    var message by remember { mutableStateOf("Message") }
+    val messageStatus = remember { MessageStatus.values()[Random.nextInt(3)] }
 
     Column(
         modifier = Modifier
@@ -34,9 +37,7 @@ fun ChatAndWidthImplementation() {
             .padding(8.dp)
     ) {
 
-        var quote by remember { mutableStateOf("Quote") }
-        var message by remember { mutableStateOf("Message") }
-        val messageStatus = remember { MessageStatus.values()[Random.nextInt(3)] }
+
 
         Column(
             modifier = Modifier
@@ -44,22 +45,49 @@ fun ChatAndWidthImplementation() {
                 .verticalScroll(rememberScrollState())
         ) {
 
-            Column(
-                horizontalAlignment = Alignment.End,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(top = 2.dp, bottom = 2.dp)
-            .background(Color.LightGray)
-                    .padding(start = 60.dp, end = 8.dp)
+//            Column(
+//                horizontalAlignment = Alignment.End,
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .wrapContentHeight()
+//                    .padding(top = 2.dp, bottom = 2.dp)
+//                    .background(Color.LightGray)
+//                    .padding(start = 60.dp, end = 8.dp, top = 2.dp, bottom = 2.dp)
+//
+//            ) {
+//                Message(
+//                    text = message,
+//                    messageTime = sdf.format(System.currentTimeMillis()),
+//                    messageStatus = messageStatus
+//                )
+//            }
 
-            ) {
-                Message(
-                    text = message,
-                    messageTime = sdf.format(System.currentTimeMillis()),
-                    messageStatus = messageStatus
-                )
-            }
+//            QuotedMessage(
+//                modifier = Modifier
+//                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+//                    // 🔥 This is required to set Surface height before text is set
+//                    .height(IntrinsicSize.Min)
+//                    .background(Color(0xffdfeed2), shape = RoundedCornerShape(8.dp))
+//                    .clip(shape = RoundedCornerShape(8.dp))
+//                    .clickable {
+//
+//                    },
+//                quotedMessage = quote
+//            )
+
+            QuotedMessage(
+                modifier = Modifier
+                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+                    // 🔥 This is required to set Surface height before text is set
+                    .height(60.dp)
+                    .width(180.dp)
+                    .background(Color(0xffdfeed2), shape = RoundedCornerShape(8.dp))
+                    .clip(shape = RoundedCornerShape(8.dp))
+                    .clickable {
+
+                    },
+                quotedImage = R.drawable.landscape1
+            )
 
 //            SentMessageRow(
 //                text = message,
@@ -70,10 +98,11 @@ fun ChatAndWidthImplementation() {
 //
 //            SentMessageRow(
 //                text = message,
-//                quotedMessage = quote,
+//                quotedImage = R.drawable.landscape1,
 //                messageTime = sdf.format(System.currentTimeMillis()),
 //                messageStatus = messageStatus
 //            )
+
         }
 
         OutlinedTextField(
@@ -115,9 +144,8 @@ private fun Message(
 
     DynamicChatBox(
         modifier = Modifier
-            .background(color)
+            .background(color),
 //            .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp)
-        ,
         text = text,
         messageStat = {
             MessageTimeText(
@@ -141,7 +169,8 @@ private fun Message(
 @Composable
 private fun SentMessageRow(
     text: String,
-    quotedMessage: String,
+    quotedMessage: String? = null,
+    quotedImage: Int? = null,
     messageTime: String,
     messageStatus: MessageStatus
 ) {
@@ -178,7 +207,8 @@ private fun SentMessageRow(
                         .clickable {
 
                         },
-                    quotedMessage = quotedMessage
+                    quotedMessage = quotedMessage,
+                    quotedImage = quotedImage
                 )
             }
         ) {

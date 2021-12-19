@@ -68,7 +68,6 @@ fun FullChatImplementation() {
                         messageTime = sdf.format(message.date)
                     )
                 }
-
             }
         }
 
@@ -133,13 +132,8 @@ private fun SentMessageRow(
                         + " IntSize: $it"
             )
 
-            var color by remember {
-                mutableStateOf(Color.Blue)
-            }
-
             DynamicChatBox(
                 modifier = Modifier
-//                    .background(color)
                     .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
                 text = text,
                 messageStat = {
@@ -148,16 +142,7 @@ private fun SentMessageRow(
                         messageTime = messageTime,
                         messageStatus = messageStatus
                     )
-                },
-//                onMeasured = { chatRowData ->
-//                    color = when (chatRowData.measuredType) {
-//                        0 -> Color.Blue
-//                        1 -> Color.Red
-//                        2 -> Color.Green
-//                        else -> Color.Magenta
-//                    }
-//                    println("🔥 IMPLEMENTATION-> $chatRowData")
-//                },
+                }
             )
         }
     }
@@ -197,16 +182,12 @@ private fun ReceivedMessageRow(text: String, messageTime: String) {
                         .clickable {
 
                         },
-                    quotedMessage = "Quoted long message"
+                    quotedImage = R.drawable.landscape1
                 )
             }
         ) {
 
-            println(
-                "📝 ReceivedMessageRow() in dependent()"
-                        + " IntSize: $it"
-            )
-
+            println( "📝 ReceivedMessageRow() in dependent() IntSize: $it")
 
             DynamicChatBox(
                 modifier = Modifier
@@ -215,8 +196,7 @@ private fun ReceivedMessageRow(text: String, messageTime: String) {
                 messageStat = {
                     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                         Text(
-                            modifier = Modifier
-                                .padding(top = 1.dp, bottom = 1.dp),
+                            modifier = Modifier.padding(top = 1.dp, bottom = 1.dp,end= 4.dp),
                             text = messageTime,
                             fontSize = 12.sp
                         )

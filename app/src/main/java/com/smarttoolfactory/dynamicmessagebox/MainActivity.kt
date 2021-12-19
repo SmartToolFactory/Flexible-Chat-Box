@@ -31,8 +31,8 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
 //                    DynamicWidthImplementation()
 //                    ResizableColumnImplementation()
-                    ChatAndWidthImplementation()
-//                    FullChatImplementation()
+//                    ChatAndWidthImplementation()
+                    FullChatImplementation()
 
                 }
             }
