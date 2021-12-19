@@ -5,26 +5,26 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccessTime
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.DoneAll
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.smarttoolfactory.dynamicmessagebox.ui.MessageTimeText
 import com.smarttoolfactory.dynamicmessagebox.ui.QuotedMessage
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentMessageColor
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentQuoteColor
 import com.smarttoolfactory.lib.DynamicChatBox
-import com.smarttoolfactory.lib.DynamicWidthLayout
+import com.smarttoolfactory.lib.SubcomposeColumn
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.random.Random
@@ -44,10 +44,14 @@ fun FullChatImplementation() {
 
         ChatAppbar()
 
+        val scrollState = rememberLazyListState()
+        val coroutineScope = rememberCoroutineScope()
+
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth(),
+            state = scrollState,
             contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp)
         ) {
             items(messages) { message: ChatMessage ->
@@ -71,15 +75,22 @@ fun FullChatImplementation() {
             }
         }
 
-        ChatInput(onMessageChange = { messageContent ->
-            messages.add(
-                ChatMessage(
-                    (messages.size + 1).toLong(),
-                    messageContent,
-                    System.currentTimeMillis()
+        ChatInput(
+            onMessageChange = { messageContent ->
+                messages.add(
+                    ChatMessage(
+                        (messages.size + 1).toLong(),
+                        messageContent,
+                        System.currentTimeMillis()
+                    )
                 )
-            )
-        })
+
+                coroutineScope.launch {
+                    scrollState.animateScrollToItem(messages.size - 1)
+                }
+
+            }
+        )
     }
 }
 
@@ -103,11 +114,11 @@ private fun SentMessageRow(
 
 
         // This is chat bubble
-        DynamicWidthLayout(
+        SubcomposeColumn(
             modifier = Modifier
                 .shadow(1.dp, RoundedCornerShape(8.dp))
                 .clip(RoundedCornerShape(8.dp))
-                .background(Color(0xffDCF8C6))
+                .background(SentMessageColor)
                 .clickable { },
 
             mainContent = {
@@ -117,7 +128,7 @@ private fun SentMessageRow(
                         .padding(top = 4.dp, start = 4.dp, end = 4.dp)
                         // 🔥 This is required to set Surface height before text is set
                         .height(IntrinsicSize.Min)
-                        .background(Color(0xffdfeed2), shape = RoundedCornerShape(8.dp))
+                        .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
                         .clip(shape = RoundedCornerShape(8.dp))
                         .clickable {
 
@@ -163,7 +174,7 @@ private fun ReceivedMessageRow(text: String, messageTime: String) {
     ) {
 
         // This is chat bubble
-        DynamicWidthLayout(
+        SubcomposeColumn(
             modifier = Modifier
                 .shadow(1.dp, RoundedCornerShape(8.dp))
                 .clip(RoundedCornerShape(8.dp))
@@ -187,7 +198,7 @@ private fun ReceivedMessageRow(text: String, messageTime: String) {
             }
         ) {
 
-            println( "📝 ReceivedMessageRow() in dependent() IntSize: $it")
+            println("📝 ReceivedMessageRow() in dependent() IntSize: $it")
 
             DynamicChatBox(
                 modifier = Modifier
@@ -196,7 +207,7 @@ private fun ReceivedMessageRow(text: String, messageTime: String) {
                 messageStat = {
                     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                         Text(
-                            modifier = Modifier.padding(top = 1.dp, bottom = 1.dp,end= 4.dp),
+                            modifier = Modifier.padding(top = 1.dp, bottom = 1.dp, end = 4.dp),
                             text = messageTime,
                             fontSize = 12.sp
                         )

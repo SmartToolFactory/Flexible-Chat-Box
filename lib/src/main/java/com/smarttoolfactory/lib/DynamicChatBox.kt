@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.Placeable
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -23,6 +24,94 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
+/**
+ * Layout that contains message and message status. [messageStat] is positioned based on
+ * how many lines [text] has and with of message composable and [messageStat] or parent of
+ * this composable. [messageStat] can be position right side or bottom or top of last line
+ * of the message.
+ *
+ * Since [TextLayoutResult] is required for text properties composable contains message but
+ * [messageStat] is a parameter of this function which can be created in lambda block.
+ *
+ * @param text This is the context of the message as [AnnotatedString].
+ * @param fontSize of message [Text].
+ * @param fontStyle of message [Text].
+ * @param fontWeight of message [Text].
+ * @param fontFamily of message [Text].
+ * @param letterSpacing of message [Text].
+ * @param textDecoration of message [Text].
+ * @param textAlign of message [Text].
+ * @param lineHeight of message [Text].
+ * @param overflow of message [Text].
+ * @param softWrap of message [Text].
+ * @param maxLines of message [Text].
+ * @param messageStat composable that might contain message date and message receive status.
+ * @param onMeasure returns results from measuring and positioning chat components.
+ */
+@Composable
+fun DynamicChatBox(
+    modifier: Modifier = Modifier,
+    text: AnnotatedString,
+    color: Color = Color.Unspecified,
+    fontSize: TextUnit = 16.sp,
+    fontStyle: FontStyle? = null,
+    fontWeight: FontWeight? = null,
+    fontFamily: FontFamily? = null,
+    letterSpacing: TextUnit = TextUnit.Unspecified,
+    textDecoration: TextDecoration? = null,
+    textAlign: TextAlign? = null,
+    lineHeight: TextUnit = TextUnit.Unspecified,
+    overflow: TextOverflow = TextOverflow.Clip,
+    softWrap: Boolean = true,
+    maxLines: Int = Int.MAX_VALUE,
+    messageStat: @Composable () -> Unit,
+    onMeasure: ((ChatRowData) -> Unit)? = null
+) {
+    DynamicChatBox(
+        modifier= modifier,
+        text = text.text,
+        color = color,
+        fontSize = fontSize,
+        fontStyle = fontStyle,
+        fontWeight = fontWeight,
+        fontFamily = fontFamily,
+        letterSpacing = letterSpacing,
+        textDecoration = textDecoration,
+        textAlign = textAlign,
+        lineHeight = lineHeight,
+        overflow = overflow,
+        softWrap = softWrap,
+        maxLines = maxLines,
+        messageStat = messageStat,
+        onMeasure = onMeasure
+    )
+}
+
+
+/**
+ * Layout that contains message and message status. [messageStat] is positioned based on
+ * how many lines [text] has and with of message composable and [messageStat] or parent of
+ * this composable. [messageStat] can be position right side or bottom or top of last line
+ * of the message.
+ *
+ * Since [TextLayoutResult] is required for text properties composable contains message but
+ * [messageStat] is a parameter of this function which can be created in lambda block.
+ *
+ * @param text This is the context of the message.
+ * @param fontSize of message [Text].
+ * @param fontStyle of message [Text].
+ * @param fontWeight of message [Text].
+ * @param fontFamily of message [Text].
+ * @param letterSpacing of message [Text].
+ * @param textDecoration of message [Text].
+ * @param textAlign of message [Text].
+ * @param lineHeight of message [Text].
+ * @param overflow of message [Text].
+ * @param softWrap of message [Text].
+ * @param maxLines of message [Text].
+ * @param messageStat composable that might contain message date and message receive status.
+ * @param onMeasure returns results from measuring and positioning chat components.
+ */
 @Composable
 fun DynamicChatBox(
     modifier: Modifier = Modifier,
@@ -62,23 +151,12 @@ fun DynamicChatBox(
             overflow = overflow,
             softWrap = softWrap,
             maxLines = maxLines,
-            onTextLayout = { textLayoutResult ->
+            onTextLayout = { textLayoutResult: TextLayoutResult ->
                 // maxWidth of text constraint returns parent maxWidth - horizontal padding
                 chatRowData.lineCount = textLayoutResult.lineCount
                 chatRowData.lastLineWidth =
                     textLayoutResult.getLineRight(chatRowData.lineCount - 1)
                 chatRowData.textWidth = textLayoutResult.size.width
-
-//                val size = textLayoutResult.size
-//                val lineStart = textLayoutResult.getLineStart(chatRowData.lineCount - 1)
-//                val lineLeft = textLayoutResult.getLineLeft(chatRowData.lineCount - 1)
-//                val lineEnd = textLayoutResult.getLineEnd(chatRowData.lineCount - 1)
-//                println(
-//                    "☕️ DynamicChatBox() onTextLayout(): " +
-//                            "constraints: ${textLayoutResult.layoutInput.constraints}, " +
-//                            "size: $size lastLineWidth. ${chatRowData.lastLineWidth}, " +
-//                            "lineEnd: $lineEnd, lineStart: $lineStart, lineLeft: $lineLeft"
-//                )
             }
         )
 

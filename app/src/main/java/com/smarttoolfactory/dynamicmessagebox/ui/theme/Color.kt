@@ -12,3 +12,7 @@ val Orange400 = Color(0xffFFA726)
 val Blue400 = Color(0xff42A5F5)
 val Pink400 = Color(0xffEC407A)
 val Green400 = Color(0xff66BB6A)
+
+val SentMessageColor = Color(0xffE7FFDB)
+val SentQuoteColor = Color(0xffDEF6D3)
+val QuoteTextColor = Color(0xff757575)

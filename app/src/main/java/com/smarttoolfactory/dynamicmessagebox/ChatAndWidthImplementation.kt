@@ -17,8 +17,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.smarttoolfactory.dynamicmessagebox.ui.MessageTimeText
 import com.smarttoolfactory.dynamicmessagebox.ui.QuotedMessage
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentMessageColor
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentQuoteColor
 import com.smarttoolfactory.lib.DynamicChatBox
-import com.smarttoolfactory.lib.DynamicWidthLayout
+import com.smarttoolfactory.lib.SubcomposeColumn
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.random.Random
@@ -67,7 +69,7 @@ fun ChatAndWidthImplementation() {
 //                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
 //                    // 🔥 This is required to set Surface height before text is set
 //                    .height(IntrinsicSize.Min)
-//                    .background(Color(0xffdfeed2), shape = RoundedCornerShape(8.dp))
+//                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
 //                    .clip(shape = RoundedCornerShape(8.dp))
 //                    .clickable {
 //
@@ -81,7 +83,7 @@ fun ChatAndWidthImplementation() {
                     // 🔥 This is required to set Surface height before text is set
                     .height(60.dp)
                     .width(180.dp)
-                    .background(Color(0xffdfeed2), shape = RoundedCornerShape(8.dp))
+                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
                     .clip(shape = RoundedCornerShape(8.dp))
                     .clickable {
 
@@ -128,7 +130,6 @@ fun ChatAndWidthImplementation() {
                 message = newValue
             }
         )
-
     }
 }
 
@@ -188,11 +189,11 @@ private fun SentMessageRow(
 
 
         // This is chat bubble
-        DynamicWidthLayout(
+        SubcomposeColumn(
             modifier = Modifier
                 .shadow(1.dp, RoundedCornerShape(8.dp))
                 .clip(RoundedCornerShape(8.dp))
-                .background(Color(0xffDCF8C6))
+                .background(SentMessageColor)
                 .clickable { },
 
             mainContent = {
@@ -202,7 +203,7 @@ private fun SentMessageRow(
                         .padding(top = 4.dp, start = 4.dp, end = 4.dp)
                         // 🔥 This is required to set Surface height before text is set
                         .height(IntrinsicSize.Min)
-                        .background(Color(0xffdfeed2), shape = RoundedCornerShape(8.dp))
+                        .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
                         .clip(shape = RoundedCornerShape(8.dp))
                         .clickable {
 

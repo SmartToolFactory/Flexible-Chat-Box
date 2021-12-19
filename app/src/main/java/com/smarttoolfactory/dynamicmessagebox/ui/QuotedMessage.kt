@@ -23,7 +23,9 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.smarttoolfactory.dynamicmessagebox.getRandomColor
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.QuoteTextColor
 
+// FIXME Set image position to end, currently image position is not set correctly
 @Composable
 fun QuotedMessage(
     modifier: Modifier = Modifier,
@@ -66,6 +68,7 @@ fun QuotedMessage(
                     }
 
                     Text(
+                        color = QuoteTextColor,
                         text = quotedMessage ?: "Photo",
                         fontSize = 12.sp,
                         maxLines = 3,
