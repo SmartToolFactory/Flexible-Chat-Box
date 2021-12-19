@@ -39,15 +39,16 @@ fun DynamicChatBox(
     overflow: TextOverflow = TextOverflow.Clip,
     softWrap: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,
-    messageStat: @Composable () -> Unit = {},
-    onMeasured: ((ChatRowData) -> Unit)? = null
+    messageStat: @Composable () -> Unit,
+    onMeasure: ((ChatRowData) -> Unit)? = null
 ) {
     val chatRowData = remember { ChatRowData() }
-
     val content = @Composable {
 
         Message(
-            modifier = Modifier,
+            modifier = modifier
+                .padding(horizontal = 6.dp, vertical = 6.dp)
+                .wrapContentSize(),
             text = text,
             color = color,
             fontSize = fontSize,
@@ -62,10 +63,22 @@ fun DynamicChatBox(
             softWrap = softWrap,
             maxLines = maxLines,
             onTextLayout = { textLayoutResult ->
+                // maxWidth of text constraint returns parent maxWidth - horizontal padding
                 chatRowData.lineCount = textLayoutResult.lineCount
                 chatRowData.lastLineWidth =
                     textLayoutResult.getLineRight(chatRowData.lineCount - 1)
-                println("☕ DynamicChatBox() text: $text, DATA: $chatRowData️")
+                chatRowData.textWidth = textLayoutResult.size.width
+
+//                val size = textLayoutResult.size
+//                val lineStart = textLayoutResult.getLineStart(chatRowData.lineCount - 1)
+//                val lineLeft = textLayoutResult.getLineLeft(chatRowData.lineCount - 1)
+//                val lineEnd = textLayoutResult.getLineEnd(chatRowData.lineCount - 1)
+//                println(
+//                    "☕️ DynamicChatBox() onTextLayout(): " +
+//                            "constraints: ${textLayoutResult.layoutInput.constraints}, " +
+//                            "size: $size lastLineWidth. ${chatRowData.lastLineWidth}, " +
+//                            "lineEnd: $lineEnd, lineStart: $lineStart, lineLeft: $lineLeft"
+//                )
             }
         )
 
@@ -92,37 +105,36 @@ fun DynamicChatBox(
         val status = placeables.last()
 
         // calculate chat row dimensions are not  based on message and status positions
-        if ((chatRowData.width == 0 || chatRowData.height == 0) || chatRowData.text != text) {
-            // Constrain wit max width instead of longest sibling
+        if ((chatRowData.rowWidth == 0 || chatRowData.rowHeight == 0) || chatRowData.text != text) {
+            // Constrain with max width instead of longest sibling
             // since this composable can be longest of siblings after calculation
             chatRowData.parentWidth = constraints.maxWidth
             calculateChatWidthAndHeight(text, chatRowData, message, status)
             // Parent width of this chat row is either result of width calculation
             // or quote or other sibling width if they are longer than calculated width.
+            // minWidth of Constraint equals (text width + horizontal padding)
             chatRowData.parentWidth =
-                chatRowData.width.coerceAtLeast(minimumValue = constraints.minWidth)
+                chatRowData.rowWidth.coerceAtLeast(minimumValue = constraints.minWidth)
         }
 
-        println(
-            "⚠️⚠️ CHAT constraints.minWidth: ${constraints.minWidth}, " +
-                    "max: ${constraints.maxWidth}, " +
-                    "CHAT_ROW_DATA: $chatRowData"
-        )
+        println("⚠️⚠️ CHAT after calculation-> CHAT_ROW_DATA: $chatRowData")
 
         // Send measurement results if requested by Composable
-        onMeasured?.invoke(chatRowData)
+        onMeasure?.invoke(chatRowData)
 
-        layout(width = chatRowData.parentWidth, height = chatRowData.height) {
+        layout(width = chatRowData.parentWidth, height = chatRowData.rowHeight) {
 
             println(
                 "⚠️⚠️⚠️ CHAT layout() status x: ${chatRowData.parentWidth - status.width}, " +
-                        "y: ${chatRowData.height - status.height}"
+                        "y: ${chatRowData.rowHeight - status.height}"
             )
 
             message.placeRelative(0, 0)
+            // set left of status relative to parent because other elements could result this row
+            // to be long as longest composable
             status.placeRelative(
                 chatRowData.parentWidth - status.width,
-                chatRowData.height - status.height
+                chatRowData.rowHeight - status.height
             )
         }
     }
@@ -135,54 +147,48 @@ private fun calculateChatWidthAndHeight(
     status: Placeable?,
 ) {
 
-    val lineCount = chatRowData.lineCount
-    val lastLineWidth = chatRowData.lastLineWidth
-    val parentWidth = chatRowData.parentWidth
+    if (status != null) {
 
-    if (status == null) {
-        chatRowData.width = message.width
-        chatRowData.height = message.height
-    } else {
+        val lineCount = chatRowData.lineCount
+        val lastLineWidth = chatRowData.lastLineWidth
+        val parentWidth = chatRowData.parentWidth
 
-        println("🌽 CHAT calculate() STATUS width: ${status.width}, message width: ${message.width}, parent: ${chatRowData.parentWidth}")
+        val padding = (message.measuredWidth - chatRowData.textWidth) / 2
+        println(
+            "🌽 CHAT INIT calculate() text: $text\n" +
+                    "lineCount: $lineCount, parentWidth: $parentWidth, lastLineWidth: $lastLineWidth\n" +
+                    "MESSAGE width: ${message.width}, measured: ${message.measuredWidth}," +
+                    " textWidth: ${chatRowData.textWidth} padding: $padding\n" +
+                    "STATUS width: ${status.width}, measured: ${status.measuredWidth}, " +
+                    "(stat +last): ${lastLineWidth + status.measuredWidth}\n"
+        )
 
-        if (lineCount > 1 && lastLineWidth + status.measuredWidth < message.measuredWidth) {
-            chatRowData.width = message.measuredWidth
-            chatRowData.height = message.measuredHeight
+        // Multiple lines and last line and status is longer than text size and right padding
+        if (lineCount > 1 && lastLineWidth + status.measuredWidth >= chatRowData.textWidth + padding) {
+            chatRowData.rowWidth = message.measuredWidth
+            chatRowData.rowHeight = message.measuredHeight + status.measuredHeight
             chatRowData.measuredType = 0
-            println(
-                "🔥 CHAT calculate(): $text, parentWidth: $parentWidth,  " +
-                        "lineCount: $lineCount, lastLineWidth: $lastLineWidth, " +
-                        "message.width: ${message.width}, status.measuredWidth: ${status.measuredWidth}"
-            )
-        } else if (lineCount > 1 && lastLineWidth + status.measuredWidth >= parentWidth) {
-            chatRowData.width = message.measuredWidth
-            chatRowData.height = message.measuredHeight + status.measuredHeight
+            println("🤔 CHAT calculate() 0 for ${chatRowData.textWidth + padding}")
+        } else if (lineCount > 1 && lastLineWidth + status.measuredWidth < chatRowData.textWidth + padding) {
+            // Multiple lines and last line and status is shorter than text size and right padding
+            chatRowData.rowWidth = message.measuredWidth
+            chatRowData.rowHeight = message.measuredHeight
             chatRowData.measuredType = 1
-            println(
-                "🤔 CHAT calculate(): $text, parentWidth: $parentWidth,  " +
-                        "lineCount: $lineCount, lastLineWidth: $lastLineWidth, " +
-                        "message.width: ${message.width}, status.measuredWidth: ${status.measuredWidth}"
-            )
+            println("🔥 CHAT calculate() 1 for ${message.measuredWidth - padding}")
         } else if (lineCount == 1 && message.width + status.measuredWidth >= parentWidth) {
-            chatRowData.width = message.measuredWidth
-            chatRowData.height = message.measuredHeight + status.measuredHeight
+            chatRowData.rowWidth = message.measuredWidth
+            chatRowData.rowHeight = message.measuredHeight + status.measuredHeight
             chatRowData.measuredType = 2
-            println(
-                "🎃 CHAT calculate(): $text, parentWidth: $parentWidth,  " +
-                        "lineCount: $lineCount, lastLineWidth: $lastLineWidth, " +
-                        "message.width: ${message.width}, status.measuredWidth: ${status.measuredWidth}"
-            )
+            println("🎃 CHAT calculate() 2")
         } else {
-            chatRowData.width = message.measuredWidth + status.measuredWidth
-            chatRowData.height = message.measuredHeight
+            chatRowData.rowWidth = message.measuredWidth + status.measuredWidth
+            chatRowData.rowHeight = message.measuredHeight
             chatRowData.measuredType = 3
-            println(
-                "🚀 CHAT calculate(): $text, parentWidth: $parentWidth,  " +
-                        "lineCount: $lineCount, lastLineWidth: $lastLineWidth, " +
-                        "message.width: ${message.width}, status.measuredWidth: ${status.measuredWidth}"
-            )
+            println("🚀 CHAT calculate() 3")
         }
+    } else {
+        chatRowData.rowWidth = message.width
+        chatRowData.rowHeight = message.height
     }
 }
 
@@ -205,9 +211,7 @@ private fun Message(
     maxLines: Int = Int.MAX_VALUE,
 ) {
     Text(
-        modifier = modifier
-            .wrapContentSize()
-            .padding(horizontal = 6.dp, vertical = 6.dp),
+        modifier = modifier,
         text = text,
         onTextLayout = onTextLayout,
         color = color,
@@ -225,21 +229,22 @@ private fun Message(
     )
 }
 
-
 data class ChatRowData(
-    var text:String = "",
+    var text: String = "",
+    // Width of the text without padding
+    var textWidth: Int = 0,
     var lastLineWidth: Float = 0f,
     var lineCount: Int = 0,
-    var width: Int = 0,
-    var height: Int = 0,
+    var rowWidth: Int = 0,
+    var rowHeight: Int = 0,
     var parentWidth: Int = 0,
     var measuredType: Int = 0,
 ) {
 
-
     override fun toString(): String {
-        return "ChatRowData lastLineWidth: $lastLineWidth, lineCount: $lineCount, " +
-                "width: $width, height: $height, " +
+        return "ChatRowData text: $text, " +
+                "lastLineWidth: $lastLineWidth, lineCount: $lineCount, " +
+                "textWidth: ${textWidth}, rowWidth: $rowWidth, height: $rowHeight, " +
                 "parentWidth: $parentWidth, measuredType: $measuredType"
     }
 }

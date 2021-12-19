@@ -15,6 +15,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.smarttoolfactory.dynamicmessagebox.ui.MessageTimeText
+import com.smarttoolfactory.dynamicmessagebox.ui.QuotedMessage
 import com.smarttoolfactory.lib.DynamicChatBox
 import com.smarttoolfactory.lib.DynamicWidthLayout
 import java.text.SimpleDateFormat
@@ -48,7 +50,7 @@ fun ChatAndWidthImplementation() {
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .padding(top = 2.dp, bottom = 2.dp)
-//            .background(Color.LightGray)
+            .background(Color.LightGray)
                     .padding(start = 60.dp, end = 8.dp)
 
             ) {
@@ -59,13 +61,19 @@ fun ChatAndWidthImplementation() {
                 )
             }
 
-
-            SentMessageRow(
-                text = message,
-                quotedMessage = quote,
-                messageTime = sdf.format(System.currentTimeMillis()),
-                messageStatus = messageStatus
-            )
+//            SentMessageRow(
+//                text = message,
+//                quotedMessage = quote,
+//                messageTime = sdf.format(System.currentTimeMillis()),
+//                messageStatus = messageStatus
+//            )
+//
+//            SentMessageRow(
+//                text = message,
+//                quotedMessage = quote,
+//                messageTime = sdf.format(System.currentTimeMillis()),
+//                messageStatus = messageStatus
+//            )
         }
 
         OutlinedTextField(
@@ -102,13 +110,14 @@ private fun Message(
     messageStatus: MessageStatus
 ) {
     var color by remember {
-        mutableStateOf(Color.Blue)
+        mutableStateOf(Color.Yellow)
     }
 
     DynamicChatBox(
         modifier = Modifier
             .background(color)
-            .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
+//            .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp)
+        ,
         text = text,
         messageStat = {
             MessageTimeText(
@@ -117,14 +126,14 @@ private fun Message(
                 messageStatus = messageStatus
             )
         },
-        onMeasured = { chatRowData ->
+        onMeasure = { chatRowData ->
             color = when (chatRowData.measuredType) {
-                0 -> Color.Blue
+                0 -> Color.Yellow
                 1 -> Color.Red
                 2 -> Color.Green
                 else -> Color.Magenta
             }
-            println("🔥 IMPLEMENTATION-> $chatRowData")
+//            println("🔥 IMPLEMENTATION-> $chatRowData")
         },
     )
 }
@@ -174,19 +183,8 @@ private fun SentMessageRow(
             }
         ) {
 
-            println(
-                "📝 DynamicWidthLayout() in dependent()"
-                        + " IntSize: $it"
-            )
-
-            var color by remember {
-                mutableStateOf(Color.Blue)
-            }
-
             DynamicChatBox(
-                modifier = Modifier
-//                    .background(color)
-                    .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
+                modifier = Modifier.padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
                 text = text,
                 messageStat = {
                     MessageTimeText(
@@ -194,16 +192,7 @@ private fun SentMessageRow(
                         messageTime = messageTime,
                         messageStatus = messageStatus
                     )
-                },
-//                onMeasured = { chatRowData ->
-//                    color = when (chatRowData.measuredType) {
-//                        0 -> Color.Blue
-//                        1 -> Color.Red
-//                        2 -> Color.Green
-//                        else -> Color.Magenta
-//                    }
-//                    println("🔥 IMPLEMENTATION-> $chatRowData")
-//                },
+                }
             )
         }
     }

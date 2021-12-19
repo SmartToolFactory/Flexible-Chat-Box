@@ -21,6 +21,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.smarttoolfactory.dynamicmessagebox.ui.MessageTimeText
+import com.smarttoolfactory.dynamicmessagebox.ui.QuotedMessage
 import com.smarttoolfactory.lib.DynamicChatBox
 import com.smarttoolfactory.lib.DynamicWidthLayout
 import java.text.SimpleDateFormat
@@ -222,85 +224,6 @@ private fun ReceivedMessageRow(text: String, messageTime: String) {
                 }
             )
         }
-    }
-}
-
-@Composable
-fun QuotedMessage(
-    modifier: Modifier = Modifier,
-    quotedMessage: String
-) {
-    val color = remember { getRandomColor() }
-    Row(
-        modifier = modifier
-    ) {
-
-        Surface(
-            color = color,
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(4.dp)
-        ) {
-        }
-
-        Column(
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-        ) {
-            Text("You", color = color, fontWeight = FontWeight.Bold, fontSize = 14.sp)
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                Text(
-                    text = quotedMessage,
-                    fontSize = 12.sp,
-                    maxLines = 3,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun MessageTimeText(
-    modifier: Modifier = Modifier,
-    messageTime: String,
-    messageStatus: MessageStatus
-) {
-    val messageStat = remember {
-        messageStatus
-    }
-
-    Row(
-        modifier = modifier.padding(end = 6.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-
-        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-            Text(
-                modifier = Modifier
-                    .padding(top = 1.dp, bottom = 1.dp),
-                text = messageTime,
-                fontSize = 12.sp
-            )
-        }
-
-        Icon(
-            modifier = Modifier
-                .size(16.dp, 12.dp)
-                .padding(start = 4.dp),
-            imageVector = when (messageStat) {
-                MessageStatus.PENDING -> {
-                    Icons.Default.AccessTime
-                }
-                MessageStatus.RECEIVED -> {
-                    Icons.Default.Done
-                }
-                else -> Icons.Default.DoneAll
-            },
-            tint = if (messageStat == MessageStatus.READ) Color(0xff0288D1)
-            else Color(0xff424242),
-            contentDescription = "messageStatus"
-        )
-
     }
 }
 
