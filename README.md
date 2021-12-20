@@ -1,13 +1,14 @@
 ## Flexible Chat Row and Resizable SubcomposeLayout
 
 
-Flexible chat row,  `ChatFlexBoxLayout`, that positions it's elements based on number of message text has
+Flexible chat row,  `ChatFlexBoxLayout`, that positions its elements based on number of lines message text has,
 parent width, message and message status width.
 And `SubcomposeColumn` created using **SubComposeLayout** which remeasures it's children based on
 longest children. This is useful fro matching quote message and message length after position
 calculation. These two composables are useful for creating dynamic message rows that positions children and positions message, message date and message status.
 
-There are 3 implementation files to try `ChatFlexBoxLayout`, and `SubcomposeColumn`
+There are 3 implementation files to try `ChatFlexBoxLayout`, and `SubcomposeColumn` which are
+`FullChatImplementation.kt`, `ChatAndWidthImplementation.kt`, and `ResizableColumnImplementation.kt`
 
 | Full Chat      | Chat Width   | Resizable|
 | ----------|-----------| -----------|
@@ -20,7 +21,7 @@ date or message date and message received status like messaging apps does.
 
 There are 4 possible conditions to position message and stats
 
-* Single line message text and status is shorter than parent width(Purple in sample)
+* Single line message text and status is shorter than parent width(Magenta in sample)
 * Single line message text and status is longer than parent width(Green in sample)
 * Multiple line message with last line width and message status is shorter message text length + right padding(Red in sample)
 * Multiple line message with last line width and message status is longer message text length + right padding(Yellow in sample)
@@ -80,7 +81,9 @@ Since `TextLayout` is required to get text length, last line width and other pro
 
 This is a layout that uses SubcomposeLayout to find longest child and then remeasure again
 and set every child to this max width. There are 2 overloads of this Composable if
-you only need to use direct 2 children use
+you only need to use direct 2 children you can use which returns size of main component
+as `IntSize`
+
 ```
 fun SubcomposeColumn(
     modifier: Modifier = Modifier,
@@ -91,7 +94,7 @@ fun SubcomposeColumn(
 }
 ```
 
-If number of children is not known use 
+This overloaded function is suitable for layout with any number of children
 
 ```
 @Composable
