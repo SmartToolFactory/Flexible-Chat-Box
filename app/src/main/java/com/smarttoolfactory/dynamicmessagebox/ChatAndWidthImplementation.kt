@@ -36,9 +36,9 @@ fun ChatAndWidthImplementation() {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color(0xffFBE9E7))
             .padding(8.dp)
     ) {
-
 
 
         Column(
@@ -47,63 +47,92 @@ fun ChatAndWidthImplementation() {
                 .verticalScroll(rememberScrollState())
         ) {
 
-//            Column(
-//                horizontalAlignment = Alignment.End,
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .wrapContentHeight()
-//                    .padding(top = 2.dp, bottom = 2.dp)
-//                    .background(Color.LightGray)
-//                    .padding(start = 60.dp, end = 8.dp, top = 2.dp, bottom = 2.dp)
-//
-//            ) {
-//                Message(
-//                    text = message,
-//                    messageTime = sdf.format(System.currentTimeMillis()),
-//                    messageStatus = messageStatus
-//                )
-//            }
+            Column(
+                horizontalAlignment = Alignment.End,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(top = 2.dp, bottom = 2.dp)
+                    .background(Color.LightGray)
+                    .padding(start = 60.dp, end = 8.dp, top = 2.dp, bottom = 2.dp)
 
-//            QuotedMessage(
-//                modifier = Modifier
-//                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
-//                    // 🔥 This is required to set Surface height before text is set
-//                    .height(IntrinsicSize.Min)
-//                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
-//                    .clip(shape = RoundedCornerShape(8.dp))
-//                    .clickable {
-//
-//                    },
-//                quotedMessage = quote
-//            )
+            ) {
+                Message(
+                    text = "Single line message",
+                    messageTime = sdf.format(System.currentTimeMillis()),
+                    messageStatus = messageStatus
+                )
+                Spacer(modifier= Modifier.height(4.dp))
+                Message(
+                    text = "Message ad stat is longer than parent",
+                    messageTime = sdf.format(System.currentTimeMillis()),
+                    messageStatus = messageStatus
+                )
+                Spacer(modifier= Modifier.height(4.dp))
+
+                Message(
+                    text = "Multiple line sample message that shorter \n" +
+                            "second line shorter",
+                    messageTime = sdf.format(System.currentTimeMillis()),
+                    messageStatus = messageStatus
+                )
+                Spacer(modifier= Modifier.height(4.dp))
+                Message(
+                    text = "Multiple line sample message that shorter \n" +
+                            "second line longer than first line...",
+                    messageTime = sdf.format(System.currentTimeMillis()),
+                    messageStatus = messageStatus
+                )
+                Spacer(modifier= Modifier.height(4.dp))
+            }
+
+            Message(
+                text = message,
+                messageTime = sdf.format(System.currentTimeMillis()),
+                messageStatus = messageStatus
+            )
+            Spacer(modifier= Modifier.height(4.dp))
 
             QuotedMessage(
                 modifier = Modifier
                     .padding(top = 4.dp, start = 4.dp, end = 4.dp)
                     // 🔥 This is required to set Surface height before text is set
-                    .height(60.dp)
-                    .width(180.dp)
+                    .height(IntrinsicSize.Min)
                     .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
                     .clip(shape = RoundedCornerShape(8.dp))
                     .clickable {
 
                     },
-                quotedImage = R.drawable.landscape1
+                quotedMessage = quote
             )
 
-//            SentMessageRow(
-//                text = message,
-//                quotedMessage = quote,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//                messageStatus = messageStatus
-//            )
+//            QuotedMessage(
+//                modifier = Modifier
+//                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+//                    // 🔥 This is required to set Surface height before text is set
+//                    .height(60.dp)
+//                    .width(180.dp)
+//                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
+//                    .clip(shape = RoundedCornerShape(8.dp))
+//                    .clickable {
 //
-//            SentMessageRow(
-//                text = message,
-//                quotedImage = R.drawable.landscape1,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//                messageStatus = messageStatus
+//                    },
+//                quotedImage = R.drawable.landscape1
 //            )
+
+            SentMessageRow(
+                text = message,
+                quotedMessage = quote,
+                messageTime = sdf.format(System.currentTimeMillis()),
+                messageStatus = messageStatus
+            )
+
+            SentMessageRow(
+                text = message,
+                quotedImage = R.drawable.landscape1,
+                messageTime = sdf.format(System.currentTimeMillis()),
+                messageStatus = messageStatus
+            )
 
         }
 
@@ -145,8 +174,8 @@ private fun Message(
 
     ChatFlexBoxLayout(
         modifier = Modifier
-            .background(color),
-//            .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp)
+            .background(color, shape = RoundedCornerShape(8.dp))
+            .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
         text = text,
         messageStat = {
             MessageTimeText(
