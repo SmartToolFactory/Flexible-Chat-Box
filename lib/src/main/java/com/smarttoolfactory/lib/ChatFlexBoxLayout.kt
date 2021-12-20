@@ -49,7 +49,7 @@ import androidx.compose.ui.unit.sp
  * @param onMeasure returns results from measuring and positioning chat components.
  */
 @Composable
-fun DynamicChatBox(
+fun ChatFlexBoxLayout(
     modifier: Modifier = Modifier,
     text: AnnotatedString,
     color: Color = Color.Unspecified,
@@ -67,7 +67,7 @@ fun DynamicChatBox(
     messageStat: @Composable () -> Unit,
     onMeasure: ((ChatRowData) -> Unit)? = null
 ) {
-    DynamicChatBox(
+    ChatFlexBoxLayout(
         modifier= modifier,
         text = text.text,
         color = color,
@@ -113,7 +113,7 @@ fun DynamicChatBox(
  * @param onMeasure returns results from measuring and positioning chat components.
  */
 @Composable
-fun DynamicChatBox(
+fun ChatFlexBoxLayout(
     modifier: Modifier = Modifier,
     text: String,
     color: Color = Color.Unspecified,

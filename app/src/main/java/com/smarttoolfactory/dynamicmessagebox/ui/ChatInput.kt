@@ -1,4 +1,4 @@
-package com.smarttoolfactory.dynamicmessagebox
+package com.smarttoolfactory.dynamicmessagebox.ui
 
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility

@@ -19,7 +19,7 @@ import com.smarttoolfactory.dynamicmessagebox.ui.MessageTimeText
 import com.smarttoolfactory.dynamicmessagebox.ui.QuotedMessage
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentMessageColor
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentQuoteColor
-import com.smarttoolfactory.lib.DynamicChatBox
+import com.smarttoolfactory.lib.ChatFlexBoxLayout
 import com.smarttoolfactory.lib.SubcomposeColumn
 import java.text.SimpleDateFormat
 import java.util.*
@@ -143,7 +143,7 @@ private fun Message(
         mutableStateOf(Color.Yellow)
     }
 
-    DynamicChatBox(
+    ChatFlexBoxLayout(
         modifier = Modifier
             .background(color),
 //            .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp)
@@ -214,7 +214,7 @@ private fun SentMessageRow(
             }
         ) {
 
-            DynamicChatBox(
+            ChatFlexBoxLayout(
                 modifier = Modifier.padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
                 text = text,
                 messageStat = {

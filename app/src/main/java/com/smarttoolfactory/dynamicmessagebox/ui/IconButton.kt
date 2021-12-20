@@ -1,4 +1,4 @@
-package com.smarttoolfactory.dynamicmessagebox
+package com.smarttoolfactory.dynamicmessagebox.ui
 
 import androidx.compose.foundation.Indication
 import androidx.compose.foundation.clickable

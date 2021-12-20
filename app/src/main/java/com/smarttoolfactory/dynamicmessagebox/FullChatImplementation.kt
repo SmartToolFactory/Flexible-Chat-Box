@@ -18,11 +18,14 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.smarttoolfactory.dynamicmessagebox.ui.ChatAppbar
+import com.smarttoolfactory.dynamicmessagebox.ui.ChatInput
 import com.smarttoolfactory.dynamicmessagebox.ui.MessageTimeText
 import com.smarttoolfactory.dynamicmessagebox.ui.QuotedMessage
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.QuotedMessageColor
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentMessageColor
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentQuoteColor
-import com.smarttoolfactory.lib.DynamicChatBox
+import com.smarttoolfactory.lib.ChatFlexBoxLayout
 import com.smarttoolfactory.lib.SubcomposeColumn
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -143,7 +146,7 @@ private fun SentMessageRow(
                         + " IntSize: $it"
             )
 
-            DynamicChatBox(
+            ChatFlexBoxLayout(
                 modifier = Modifier
                     .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
                 text = text,
@@ -188,7 +191,7 @@ private fun ReceivedMessageRow(text: String, messageTime: String) {
                         .padding(top = 4.dp, start = 4.dp, end = 4.dp)
                         // 🔥 This is required to set Surface height before text is set
                         .height(IntrinsicSize.Min)
-                        .background(Color(0xffECEFF1), shape = RoundedCornerShape(8.dp))
+                        .background(QuotedMessageColor, shape = RoundedCornerShape(8.dp))
                         .clip(shape = RoundedCornerShape(8.dp))
                         .clickable {
 
@@ -200,7 +203,7 @@ private fun ReceivedMessageRow(text: String, messageTime: String) {
 
             println("📝 ReceivedMessageRow() in dependent() IntSize: $it")
 
-            DynamicChatBox(
+            ChatFlexBoxLayout(
                 modifier = Modifier
                     .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
                 text = text,
