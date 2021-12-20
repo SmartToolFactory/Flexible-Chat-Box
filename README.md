@@ -3,6 +3,7 @@
 
 <img src="/./screenshots/full_chat_implementation.png" align="right" width="25%"/>
 <img src="/./screenshots/chat_width_implementation.png" align="right" width="25%"/>
+<img src="/./screenshots/resizable_implementation.png" align="right" width="25%"/>
 
 
 Flexible chat row,  `ChatFlexBoxLayout`, that positions it's elements based on number of message text has
@@ -11,26 +12,7 @@ And `SubcomposeColumn` created using **SubComposeLayout** which remeasures it's 
 longest children. This is useful fro matching quote message and message length after position
 calculation. These two composables are useful for creating dynamic message rows that positions children and positions message, message date and message status.
 
-```
-    ChatFlexBoxLayout(
-        modifier= modifier,
-        text = text.text,
-        color = color,
-        fontSize = fontSize,
-        fontStyle = fontStyle,
-        fontWeight = fontWeight,
-        fontFamily = fontFamily,
-        letterSpacing = letterSpacing,
-        textDecoration = textDecoration,
-        textAlign = textAlign,
-        lineHeight = lineHeight,
-        overflow = overflow,
-        softWrap = softWrap,
-        maxLines = maxLines,
-        messageStat = messageStat,
-        onMeasure = onMeasure
-    )
-```
+
 
 
 ### ChatFlexBoxLayout
