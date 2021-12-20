@@ -191,8 +191,7 @@ private fun Message(
                 2 -> Color.Green
                 else -> Color.Magenta
             }
-//            println("🔥 IMPLEMENTATION-> $chatRowData")
-        },
+        }
     )
 }
 
