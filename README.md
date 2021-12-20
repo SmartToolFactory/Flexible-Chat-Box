@@ -3,7 +3,7 @@
 
 <img src="/./screenshots/full_chat_implementation.png" align="right" width="25%"/>
 <img src="/./screenshots/chat_width_implementation.png" align="right" width="25%"/>
-<img src="/./screenshots/resizable_implementation.png" align="right" width="25%"/>
+<img src="/./screenshots/resizable_implementation.gif" align="right" width="25%"/>
 
 
 Flexible chat row,  `ChatFlexBoxLayout`, that positions it's elements based on number of message text has
