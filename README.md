@@ -1,18 +1,15 @@
 ## Flexible Chat Row and Resizable SubcomposeLayout
 
 
-<img src="/./screenshots/full_chat_implementation.png" align="right" width="25%"/>
-<img src="/./screenshots/chat_width_implementation.png" align="right" width="25%"/>
-<img src="/./screenshots/resizable_implementation.gif" align="right" width="25%"/>
-
-
 Flexible chat row,  `ChatFlexBoxLayout`, that positions it's elements based on number of message text has
 parent width, message and message status width.
 And `SubcomposeColumn` created using **SubComposeLayout** which remeasures it's children based on
 longest children. This is useful fro matching quote message and message length after position
 calculation. These two composables are useful for creating dynamic message rows that positions children and positions message, message date and message status.
 
-
+| Full Chat      | Chat Width   | Resizable|
+| ----------|-----------| -----------|
+| <img src="./screenshots/full_chat_implementation.png" width="30%"/> | <img src="./screenshots/chat_width_implementation.png"  width="30%"/> | <img src="./screenshots/resizable_implementation.gif"  width="30%"/> |
 
 
 ### ChatFlexBoxLayout
