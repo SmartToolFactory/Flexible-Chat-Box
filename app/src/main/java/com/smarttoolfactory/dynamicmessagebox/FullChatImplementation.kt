@@ -22,7 +22,7 @@ import com.smarttoolfactory.dynamicmessagebox.ui.ChatAppbar
 import com.smarttoolfactory.dynamicmessagebox.ui.ChatInput
 import com.smarttoolfactory.dynamicmessagebox.ui.MessageTimeText
 import com.smarttoolfactory.dynamicmessagebox.ui.QuotedMessage
-import com.smarttoolfactory.dynamicmessagebox.ui.theme.QuotedMessageColor
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.ReceivedQuoteColor
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentMessageColor
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentQuoteColor
 import com.smarttoolfactory.lib.ChatFlexBoxLayout
@@ -152,7 +152,7 @@ private fun SentMessageRow(
                 text = text,
                 messageStat = {
                     MessageTimeText(
-                        modifier = Modifier.wrapContentSize(),
+                        modifier = Modifier.wrapContentSize().padding(end = 6.dp),
                         messageTime = messageTime,
                         messageStatus = messageStatus
                     )
@@ -191,7 +191,7 @@ private fun ReceivedMessageRow(text: String, messageTime: String) {
                         .padding(top = 4.dp, start = 4.dp, end = 4.dp)
                         // 🔥 This is required to set Surface height before text is set
                         .height(IntrinsicSize.Min)
-                        .background(QuotedMessageColor, shape = RoundedCornerShape(8.dp))
+                        .background(ReceivedQuoteColor, shape = RoundedCornerShape(8.dp))
                         .clip(shape = RoundedCornerShape(8.dp))
                         .clickable {
 

@@ -32,7 +32,7 @@ fun MessageTimeText(
     }
 
     Row(
-        modifier = modifier.padding(end = 6.dp),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
 

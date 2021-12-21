@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -15,8 +17,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.smarttoolfactory.dynamicmessagebox.ui.MessageTimeText
 import com.smarttoolfactory.dynamicmessagebox.ui.QuotedMessage
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.Orange400
+import com.smarttoolfactory.dynamicmessagebox.ui.theme.ReceivedQuoteColor
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentMessageColor
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentQuoteColor
 import com.smarttoolfactory.lib.ChatFlexBoxLayout
@@ -47,65 +52,65 @@ fun ChatAndWidthImplementation() {
                 .verticalScroll(rememberScrollState())
         ) {
 
-            Column(
-                horizontalAlignment = Alignment.End,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(top = 2.dp, bottom = 2.dp)
-                    .background(Color.LightGray)
-                    .padding(start = 60.dp, end = 8.dp, top = 2.dp, bottom = 2.dp)
-
-            ) {
-                Message(
-                    text = "Single line message",
-                    messageTime = sdf.format(System.currentTimeMillis()),
-                    messageStatus = messageStatus
-                )
-                Spacer(modifier= Modifier.height(4.dp))
-                Message(
-                    text = "Message ad stat is longer than parent",
-                    messageTime = sdf.format(System.currentTimeMillis()),
-                    messageStatus = messageStatus
-                )
-                Spacer(modifier= Modifier.height(4.dp))
-
-                Message(
-                    text = "Multiple line sample message that shorter \n" +
-                            "second line shorter",
-                    messageTime = sdf.format(System.currentTimeMillis()),
-                    messageStatus = messageStatus
-                )
-                Spacer(modifier= Modifier.height(4.dp))
-                Message(
-                    text = "Multiple line sample message that shorter \n" +
-                            "second line longer than first line...",
-                    messageTime = sdf.format(System.currentTimeMillis()),
-                    messageStatus = messageStatus
-                )
-                Spacer(modifier= Modifier.height(4.dp))
-            }
-
-            Message(
-                text = message,
-                messageTime = sdf.format(System.currentTimeMillis()),
-                messageStatus = messageStatus
-            )
-            Spacer(modifier= Modifier.height(4.dp))
-
-            QuotedMessage(
-                modifier = Modifier
-                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
-                    // 🔥 This is required to set Surface height before text is set
-                    .height(IntrinsicSize.Min)
-                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
-                    .clip(shape = RoundedCornerShape(8.dp))
-                    .clickable {
-
-                    },
-                quotedMessage = quote
-            )
-
+//            Column(
+//                horizontalAlignment = Alignment.End,
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .wrapContentHeight()
+//                    .padding(top = 2.dp, bottom = 2.dp)
+//                    .background(Color.LightGray)
+//                    .padding(start = 60.dp, end = 8.dp, top = 2.dp, bottom = 2.dp)
+//
+//            ) {
+//                MessageRow(
+//                    text = "Single line message",
+//                    messageTime = sdf.format(System.currentTimeMillis()),
+//                    messageStatus = messageStatus
+//                )
+//                Spacer(modifier = Modifier.height(4.dp))
+//                MessageRow(
+//                    text = "Message ad stat is longer than parent",
+//                    messageTime = sdf.format(System.currentTimeMillis()),
+//                    messageStatus = messageStatus
+//                )
+//                Spacer(modifier = Modifier.height(4.dp))
+//
+//                MessageRow(
+//                    text = "Multiple line sample message that shorter \n" +
+//                            "second line shorter",
+//                    messageTime = sdf.format(System.currentTimeMillis()),
+//                    messageStatus = messageStatus
+//                )
+//                Spacer(modifier = Modifier.height(4.dp))
+//                MessageRow(
+//                    text = "Multiple line sample message that shorter \n" +
+//                            "second line longer than first line...",
+//                    messageTime = sdf.format(System.currentTimeMillis()),
+//                    messageStatus = messageStatus
+//                )
+//                Spacer(modifier = Modifier.height(4.dp))
+//            }
+//
+//            MessageRow(
+//                text = message,
+//                messageTime = sdf.format(System.currentTimeMillis()),
+//                messageStatus = messageStatus
+//            )
+//            Spacer(modifier = Modifier.height(4.dp))
+//
+//            QuotedMessage(
+//                modifier = Modifier
+//                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+//                    // 🔥 This is required to set Surface height before text is set
+//                    .height(IntrinsicSize.Min)
+//                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
+//                    .clip(shape = RoundedCornerShape(8.dp))
+//                    .clickable {
+//
+//                    },
+//                quotedMessage = quote
+//            )
+//
 //            QuotedMessage(
 //                modifier = Modifier
 //                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
@@ -134,6 +139,12 @@ fun ChatAndWidthImplementation() {
                 messageStatus = messageStatus
             )
 
+
+            ReceivedMessageRow(
+                text = message,
+                quotedMessage = quote,
+                messageTime = sdf.format(System.currentTimeMillis()),
+            )
         }
 
         OutlinedTextField(
@@ -163,13 +174,13 @@ fun ChatAndWidthImplementation() {
 }
 
 @Composable
-private fun Message(
+private fun MessageRow(
     text: String,
     messageTime: String,
     messageStatus: MessageStatus
 ) {
     var color by remember {
-        mutableStateOf(Color.Yellow)
+        mutableStateOf(Orange400)
     }
 
     ChatFlexBoxLayout(
@@ -179,7 +190,9 @@ private fun Message(
         text = text,
         messageStat = {
             MessageTimeText(
-                modifier = Modifier.wrapContentSize(),
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(end = 6.dp),
                 messageTime = messageTime,
                 messageStatus = messageStatus
             )
@@ -193,6 +206,75 @@ private fun Message(
             }
         }
     )
+}
+
+@Composable
+private fun ReceivedMessageRow(
+    text: String,
+    quotedMessage: String? = null,
+    quotedImage: Int? = null,
+    messageTime: String,
+) {
+    // Whole column that contains chat bubble and padding on start or end
+    Column(
+        horizontalAlignment = Alignment.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(top = 2.dp, bottom = 2.dp)
+//            .background(Color.LightGray)
+            .padding(start = 8.dp, end = 60.dp)
+
+    ) {
+
+        // This is chat bubble
+        SubcomposeColumn(
+            modifier = Modifier
+                .shadow(1.dp, RoundedCornerShape(8.dp))
+                .clip(RoundedCornerShape(8.dp))
+                .background(Color.White)
+                .clickable { },
+            content = {
+                RecipientName(
+//                        modifier = Modifier.fillMaxWidth(),
+                    name = "+44 515 1245 768",
+                    isName = true,
+//                        altName = "Random User"
+                )
+
+                // 💬 Quoted message
+                QuotedMessage(
+                    modifier = Modifier
+//                            .fillMaxWidth()
+                        .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+                        // 🔥 This is required to set Surface height before text is set
+                        .height(IntrinsicSize.Min)
+                        .background(ReceivedQuoteColor, shape = RoundedCornerShape(8.dp))
+                        .clip(shape = RoundedCornerShape(8.dp))
+                        .clickable {
+
+                        },
+                    quotedMessage = quotedMessage,
+                    quotedImage = quotedImage
+                )
+
+                ChatFlexBoxLayout(
+                    modifier = Modifier
+                        .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
+                    text = text,
+                    messageStat = {
+                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                            Text(
+                                modifier = Modifier.padding(top = 1.dp, bottom = 1.dp, end = 4.dp),
+                                text = messageTime,
+                                fontSize = 12.sp
+                            )
+                        }
+                    }
+                )
+            }
+        )
+    }
 }
 
 @Composable
