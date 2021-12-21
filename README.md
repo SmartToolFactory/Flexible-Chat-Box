@@ -3,8 +3,8 @@
 
 Flexible chat row,  `ChatFlexBoxLayout`, that positions its elements based on number of lines message text has,
 parent width, message and message status width.
-And `SubcomposeColumn` created using **SubComposeLayout** which remeasures it's children based on
-longest children. This is useful fro matching quote message and message length after position
+And `SubcomposeColumn` created using **SubComposeLayout** which remeasures its children based on
+longest children. This is useful for matching quote message and message length after position
 calculation. These two composables are useful for creating dynamic message rows that positions children and positions message, message date and message status.
 
 There are 3 implementation files to try `ChatFlexBoxLayout`, and `SubcomposeColumn` which are
@@ -50,7 +50,7 @@ ChatFlexBoxLayout(
 ```
 Since `TextLayout` is required to get text length, last line width and other properties it's internal to this composable but properties of `Text`composable can be set with same as it's done using `Text`.
 
-`onMeasure` returns internal layout data of this row , that's how i set colors differently in **chat width sample**.
+`onMeasure` returns internal layout data of this row, that's how i set colors differently in **chat width sample**.
 `messageStat` is composable that contains message text or status if you need to.
 
 ```
