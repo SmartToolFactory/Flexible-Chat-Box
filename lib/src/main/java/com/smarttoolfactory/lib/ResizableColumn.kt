@@ -2,9 +2,7 @@ package com.smarttoolfactory.lib
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.Measurable
-import androidx.compose.ui.layout.Placeable
-import androidx.compose.ui.layout.SubcomposeLayout
+import androidx.compose.ui.layout.*
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntSize
 
@@ -94,17 +92,20 @@ fun SubcomposeColumn(
             dependentPlaceables.maxOf { it.width }
         } else maxSize.width
 
-        println("✏️ SubcomposeColumn() maxSize " +
-                "width: ${maxSize.width}, height: ${maxSize.height}, maxWidth: $maxWidth")
+//        println(
+//            "✏️ SubcomposeColumn() maxSize " +
+//                    "width: ${maxSize.width}, height: ${maxSize.height}, maxWidth: $maxWidth, " +
+//                    "CONSTRAINTS: $constraints"
+//        )
 
         // If width of dependent composable is longer than main one, remeasure main one
         // with dependent composable's width using it as minWidth of Constraint
         if (!mainPlaceables.isNullOrEmpty() && maxWidth > maxSize.width) {
 
-            println(
-                "✏️✏️ SubcomposeColumn() REMEASURE MAIN COMPONENT " +
-                        "maxWidth: $maxWidth, maxSize width: ${maxSize.width}"
-            )
+//            println(
+//                "✏️✏️ SubcomposeColumn() REMEASURE MAIN COMPONENT " +
+//                        "maxWidth: $maxWidth, maxSize width: ${maxSize.width}"
+//            )
             mainPlaceables = subcompose(recompositionIndex, mainContent).map {
                 it.measure(Constraints(maxWidth, constraints.maxWidth))
             }
@@ -120,11 +121,11 @@ fun SubcomposeColumn(
 
         layout(maxSize.width, maxSize.height) {
 
-            println(
-                "✏️✏️✏️️ SubcomposeColumn() layout()-> " +
-                        "maxSize width: ${maxSize.width}, height: ${maxSize.height}, " +
-                        "maxWidth: $maxWidth"
-            )
+//            println(
+//                "✏️✏️✏️️ SubcomposeColumn() layout()-> " +
+//                        "maxSize width: ${maxSize.width}, height: ${maxSize.height}, " +
+//                        "maxWidth: $maxWidth"
+//            )
 
             var posY = 0
 

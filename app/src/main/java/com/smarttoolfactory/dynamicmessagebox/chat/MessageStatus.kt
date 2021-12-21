@@ -1,4 +1,4 @@
-package com.smarttoolfactory.dynamicmessagebox.ui
+package com.smarttoolfactory.dynamicmessagebox.chat
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding

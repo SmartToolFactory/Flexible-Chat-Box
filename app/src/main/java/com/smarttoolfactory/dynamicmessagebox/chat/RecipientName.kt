@@ -1,4 +1,4 @@
-package com.smarttoolfactory.dynamicmessagebox
+package com.smarttoolfactory.dynamicmessagebox.chat
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row

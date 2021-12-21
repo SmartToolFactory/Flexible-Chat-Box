@@ -18,10 +18,10 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.smarttoolfactory.dynamicmessagebox.chat.MessageTimeText
+import com.smarttoolfactory.dynamicmessagebox.chat.QuotedMessage
 import com.smarttoolfactory.dynamicmessagebox.ui.ChatAppbar
 import com.smarttoolfactory.dynamicmessagebox.ui.ChatInput
-import com.smarttoolfactory.dynamicmessagebox.ui.MessageTimeText
-import com.smarttoolfactory.dynamicmessagebox.ui.QuotedMessage
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.ReceivedQuoteColor
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentMessageColor
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentQuoteColor

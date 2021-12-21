@@ -171,7 +171,7 @@ fun ChatFlexBoxLayout(
         if (measurables.size != 2)
             throw IllegalArgumentException("There should be 2 components for this layout")
 
-        println("⚠️ CHAT const maxWidth: ${constraints.maxWidth}, min: ${constraints.minWidth}")
+//        println("⚠️ CHAT const maxWidth: ${constraints.maxWidth}, min: ${constraints.minWidth}")
 
         val placeables: List<Placeable> = measurables.map { measurable ->
             // Measure each child maximum constraints since message can cover all of the available
@@ -195,17 +195,17 @@ fun ChatFlexBoxLayout(
                 chatRowData.rowWidth.coerceAtLeast(minimumValue = constraints.minWidth)
         }
 
-        println("⚠️⚠️ CHAT after calculation-> CHAT_ROW_DATA: $chatRowData")
+//        println("⚠️⚠️ CHAT after calculation-> CHAT_ROW_DATA: $chatRowData")
 
         // Send measurement results if requested by Composable
         onMeasure?.invoke(chatRowData)
 
         layout(width = chatRowData.parentWidth, height = chatRowData.rowHeight) {
 
-            println(
-                "⚠️⚠️⚠️ CHAT layout() status x: ${chatRowData.parentWidth - status.width}, " +
-                        "y: ${chatRowData.rowHeight - status.height}"
-            )
+//            println(
+//                "⚠️⚠️⚠️ CHAT layout() status x: ${chatRowData.parentWidth - status.width}, " +
+//                        "y: ${chatRowData.rowHeight - status.height}"
+//            )
 
             message.placeRelative(0, 0)
             // set left of status relative to parent because other elements could result this row
@@ -232,37 +232,37 @@ private fun calculateChatWidthAndHeight(
         val parentWidth = chatRowData.parentWidth
 
         val padding = (message.measuredWidth - chatRowData.textWidth) / 2
-        println(
-            "🌽 CHAT INIT calculate() text: $text\n" +
-                    "lineCount: $lineCount, parentWidth: $parentWidth, lastLineWidth: $lastLineWidth\n" +
-                    "MESSAGE width: ${message.width}, measured: ${message.measuredWidth}," +
-                    " textWidth: ${chatRowData.textWidth} padding: $padding\n" +
-                    "STATUS width: ${status.width}, measured: ${status.measuredWidth}, " +
-                    "(stat +last): ${lastLineWidth + status.measuredWidth}\n"
-        )
+//        println(
+//            "🌽 CHAT INIT calculate() text: $text\n" +
+//                    "lineCount: $lineCount, parentWidth: $parentWidth, lastLineWidth: $lastLineWidth\n" +
+//                    "MESSAGE width: ${message.width}, measured: ${message.measuredWidth}," +
+//                    " textWidth: ${chatRowData.textWidth} padding: $padding\n" +
+//                    "STATUS width: ${status.width}, measured: ${status.measuredWidth}, " +
+//                    "(stat +last): ${lastLineWidth + status.measuredWidth}\n"
+//        )
 
         // Multiple lines and last line and status is longer than text size and right padding
         if (lineCount > 1 && lastLineWidth + status.measuredWidth >= chatRowData.textWidth + padding) {
             chatRowData.rowWidth = message.measuredWidth
             chatRowData.rowHeight = message.measuredHeight + status.measuredHeight
             chatRowData.measuredType = 0
-            println("🤔 CHAT calculate() 0 for ${chatRowData.textWidth + padding}")
+//            println("🤔 CHAT calculate() 0 for ${chatRowData.textWidth + padding}")
         } else if (lineCount > 1 && lastLineWidth + status.measuredWidth < chatRowData.textWidth + padding) {
             // Multiple lines and last line and status is shorter than text size and right padding
             chatRowData.rowWidth = message.measuredWidth
             chatRowData.rowHeight = message.measuredHeight
             chatRowData.measuredType = 1
-            println("🔥 CHAT calculate() 1 for ${message.measuredWidth - padding}")
+//            println("🔥 CHAT calculate() 1 for ${message.measuredWidth - padding}")
         } else if (lineCount == 1 && message.width + status.measuredWidth >= parentWidth) {
             chatRowData.rowWidth = message.measuredWidth
             chatRowData.rowHeight = message.measuredHeight + status.measuredHeight
             chatRowData.measuredType = 2
-            println("🎃 CHAT calculate() 2")
+//            println("🎃 CHAT calculate() 2")
         } else {
             chatRowData.rowWidth = message.measuredWidth + status.measuredWidth
             chatRowData.rowHeight = message.measuredHeight
             chatRowData.measuredType = 3
-            println("🚀 CHAT calculate() 3")
+//            println("🚀 CHAT calculate() 3")
         }
     } else {
         chatRowData.rowWidth = message.width
