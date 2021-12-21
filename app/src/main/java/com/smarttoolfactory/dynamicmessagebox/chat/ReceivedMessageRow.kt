@@ -20,6 +20,11 @@ import com.smarttoolfactory.dynamicmessagebox.ui.theme.ReceivedQuoteColor
 import com.smarttoolfactory.lib.ChatFlexBoxLayout
 import com.smarttoolfactory.lib.SubcomposeColumn
 
+
+/**
+ * This received message row uses [SubcomposeColumn] with **mainContent** and **dependentContent**
+ * and [QuotedMessage]
+ */
 @Composable
 fun ReceivedMessageRow(
     text: String,
@@ -33,9 +38,7 @@ fun ReceivedMessageRow(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(top = 2.dp, bottom = 2.dp)
-//            .background(Color.LightGray)
-            .padding(start = 8.dp, end = 60.dp)
+            .padding(start = 8.dp, end = 60.dp, top = 2.dp, bottom = 2.dp)
 
     ) {
 
@@ -90,7 +93,10 @@ fun ReceivedMessageRow(
     }
 }
 
-
+/**
+ * This received message row uses [SubcomposeColumn] with **mainContent** and **dependentContent**
+ * and [QuotedMessageAlt]
+ */
 @Composable
 fun ReceivedMessageRow2(
     text: String,
@@ -104,9 +110,7 @@ fun ReceivedMessageRow2(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(top = 2.dp, bottom = 2.dp)
-//            .background(Color.LightGray)
-            .padding(start = 8.dp, end = 60.dp)
+            .padding(start = 8.dp, end = 60.dp, top = 2.dp, bottom = 2.dp)
 
     ) {
 
@@ -161,6 +165,10 @@ fun ReceivedMessageRow2(
 }
 
 
+/**
+ * This received message row uses overloaded [SubcomposeColumn] function only with **content** arg
+ * and [QuotedMessageAlt]
+ */
 @Composable
 fun ReceivedMessageRowAlt(
     text: String,
@@ -174,9 +182,8 @@ fun ReceivedMessageRowAlt(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(top = 2.dp, bottom = 2.dp)
-//            .background(Color.LightGray)
-            .padding(start = 8.dp, end = 60.dp)
+            .padding(start = 8.dp, end = 60.dp, top = 2.dp, bottom = 2.dp)
+
 
     ) {
 
@@ -189,17 +196,14 @@ fun ReceivedMessageRowAlt(
                 .clickable { },
             content = {
                 RecipientName(
-//                        modifier = Modifier.fillMaxWidth(),
                     name = "+44 515 1245 768",
                     isName = true,
-//                        altName = "Random User"
                 )
 
                 if (quotedMessage != null || quotedImage != null) {
                     // 💬 Quoted message
                     QuotedMessageAlt(
                         modifier = Modifier
-//                            .fillMaxWidth()
                             .padding(top = 4.dp, start = 4.dp, end = 4.dp)
                             // 🔥 This is required to set Surface height before text is set
                             .height(IntrinsicSize.Min)

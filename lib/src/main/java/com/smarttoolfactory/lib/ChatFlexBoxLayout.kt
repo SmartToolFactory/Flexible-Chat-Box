@@ -171,7 +171,7 @@ fun ChatFlexBoxLayout(
         if (measurables.size != 2)
             throw IllegalArgumentException("There should be 2 components for this layout")
 
-//        println("⚠️ CHAT const maxWidth: ${constraints.maxWidth}, min: ${constraints.minWidth}")
+//        println("⚠️ CHAT constraints: $constraints")
 
         val placeables: List<Placeable> = measurables.map { measurable ->
             // Measure each child maximum constraints since message can cover all of the available
@@ -202,10 +202,10 @@ fun ChatFlexBoxLayout(
 
         layout(width = chatRowData.parentWidth, height = chatRowData.rowHeight) {
 
-//            println(
-//                "⚠️⚠️⚠️ CHAT layout() status x: ${chatRowData.parentWidth - status.width}, " +
-//                        "y: ${chatRowData.rowHeight - status.height}"
-//            )
+            println(
+                "⚠️⚠️⚠️ CHAT layout() status x: ${chatRowData.parentWidth - status.width}, " +
+                        "y: ${chatRowData.rowHeight - status.height}"
+            )
 
             message.placeRelative(0, 0)
             // set left of status relative to parent because other elements could result this row

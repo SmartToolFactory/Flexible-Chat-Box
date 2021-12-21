@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -25,10 +26,18 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
 import com.smarttoolfactory.dynamicmessagebox.getRandomColor
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.QuoteTextColor
 
-// FIXME Set image position to end, currently image position is not set correctly
+/**
+ * Quote contains quoted message or quoted image like chat apps replied messages do.
+ *
+ * This one uses [ConstraintLayout] to anchor [Image] end to parent end when [QuotedMessage]
+ * is resized to match other sibling **Composable**s
+ */
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun QuotedMessage(
     modifier: Modifier = Modifier,
@@ -40,52 +49,59 @@ fun QuotedMessage(
 
     println("🍒 QuotedMessage() color: $color")
 
-    Row(
+    val constraintSet = decoupledConstraints()
+
+    ConstraintLayout(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        constraintSet = constraintSet
     ) {
 
         println("🧨 QUOTE message: $quotedMessage, image: $quotedImage")
-        Surface(
-            color = color,
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(4.dp)
+
+        Row(
+            modifier = Modifier.layoutId("description")
         ) {
-        }
+            Surface(
+                color = color,
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(4.dp)
+            ) {
+            }
 
-        Column(
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-        ) {
-            Text(
-                "You", color = color,
-                fontWeight = FontWeight.Bold,
-                fontSize = 14.sp,
-                maxLines = 1,
-                letterSpacing = 1.sp,
-                overflow = TextOverflow.Ellipsis
-            )
+            Column(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            ) {
+                Text(
+                    "You", color = color,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 14.sp,
+                    maxLines = 1,
+                    letterSpacing = 1.sp,
+                    overflow = TextOverflow.Ellipsis
+                )
 
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    if (quotedImage != null) {
-                        Icon(imageVector = Icons.Default.InsertPhoto, contentDescription = null)
-                        Spacer(modifier = Modifier.width(4.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        if (quotedImage != null) {
+                            Icon(imageVector = Icons.Default.InsertPhoto, contentDescription = null)
+                            Spacer(modifier = Modifier.width(4.dp))
+                        }
+
+                        Text(
+                            color = QuoteTextColor,
+                            text = quotedMessage ?: "Photo",
+                            fontSize = 12.sp,
+                            maxLines = 3,
+                            overflow = TextOverflow.Ellipsis
+                        )
                     }
 
-                    Text(
-                        color = QuoteTextColor,
-                        text = quotedMessage ?: "Photo",
-                        fontSize = 12.sp,
-                        maxLines = 3,
-                        overflow = TextOverflow.Ellipsis
-                    )
                 }
-
             }
         }
 
@@ -104,6 +120,28 @@ fun QuotedMessage(
 
 }
 
+private fun decoupledConstraints(): ConstraintSet {
+    return ConstraintSet {
+        val description = createRefFor("description")
+        val image = createRefFor("image")
+
+        constrain(description) {
+            start.linkTo(parent.start)
+            end.linkTo(image.start)
+        }
+        constrain(image) {
+            end.linkTo(parent.end)
+        }
+    }
+}
+
+
+/**
+ * Quoted message row which might contain title and text or title and image.
+ *
+ * If image is used [QuoteImageRow] places image to end of this row no matter how wide
+ * quoted message row is.
+ */
 @Composable
 fun QuotedMessageAlt(
     modifier: Modifier = Modifier,
@@ -172,7 +210,7 @@ fun QuotedMessageAlt(
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier
                         .layoutId("image")
-                        .size(50.dp)
+                        .aspectRatio(1f)
                         .clip(RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp))
                 )
             }
@@ -214,7 +252,7 @@ private fun QuoteImageRow(
                 imageIndex = index
                 println("🍭CustomRow() CUSTOM ROW INDEX: $imageIndex")
             }
-            measurable.measure(Constraints(0, constraints.maxWidth))
+            measurable.measure(Constraints(0, constraints.maxWidth, 0, constraints.maxHeight))
         }
 
         val size =
@@ -230,9 +268,11 @@ private fun QuoteImageRow(
 
         val width = size.width.coerceAtLeast(constraints.minWidth)
 
-        println("🚐 CustomRow() TOTAL SIZE: $size, width: $width")
         var x = 0
         layout(width, size.height) {
+
+            println("🚐 CustomRow() layout() TOTAL SIZE: $size, width: $width")
+
             placeables.forEachIndexed { index: Int, placeable: Placeable ->
                 if (index != imageIndex) {
                     placeable.placeRelative(x, 0)

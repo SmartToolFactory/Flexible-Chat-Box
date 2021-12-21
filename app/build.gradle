@@ -61,6 +61,9 @@ dependencies {
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "androidx.compose.runtime:runtime:$compose_version"
 
+    // Jepack Compose ConstraintLayout
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
+
     implementation 'com.google.accompanist:accompanist-systemuicontroller:0.21.3-beta'
     implementation 'com.google.accompanist:accompanist-pager:0.21.3-beta'
 

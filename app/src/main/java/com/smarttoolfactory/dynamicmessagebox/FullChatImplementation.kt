@@ -20,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.smarttoolfactory.dynamicmessagebox.chat.MessageTimeText
 import com.smarttoolfactory.dynamicmessagebox.chat.QuotedMessage
+import com.smarttoolfactory.dynamicmessagebox.chat.ReceivedMessageRow
+import com.smarttoolfactory.dynamicmessagebox.chat.SentMessageRow
 import com.smarttoolfactory.dynamicmessagebox.ui.ChatAppbar
 import com.smarttoolfactory.dynamicmessagebox.ui.ChatInput
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.ReceivedQuoteColor
@@ -94,130 +96,6 @@ fun FullChatImplementation() {
 
             }
         )
-    }
-}
-
-@Composable
-private fun SentMessageRow(
-    text: String,
-    messageTime: String,
-    messageStatus: MessageStatus
-) {
-    // Whole column that contains chat bubble and padding on start or end
-    Column(
-        horizontalAlignment = Alignment.End,
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(top = 2.dp, bottom = 2.dp)
-//            .background(Color.LightGray)
-            .padding(start = 60.dp, end = 8.dp)
-
-    ) {
-
-
-        // This is chat bubble
-        SubcomposeColumn(
-            modifier = Modifier
-                .shadow(1.dp, RoundedCornerShape(8.dp))
-                .clip(RoundedCornerShape(8.dp))
-                .background(SentMessageColor)
-                .clickable { },
-
-            mainContent = {
-                // 💬 Quoted message
-                QuotedMessage(
-                    modifier = Modifier
-                        .padding(top = 4.dp, start = 4.dp, end = 4.dp)
-                        // 🔥 This is required to set Surface height before text is set
-                        .height(IntrinsicSize.Min)
-                        .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
-                        .clip(shape = RoundedCornerShape(8.dp))
-                        .clickable {
-
-                        },
-                    quotedMessage = "Quoted long message"
-                )
-            }
-        ) {
-
-            println(
-                "📝 SentMessageRow() in dependent()"
-                        + " IntSize: $it"
-            )
-
-            ChatFlexBoxLayout(
-                modifier = Modifier
-                    .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
-                text = text,
-                messageStat = {
-                    MessageTimeText(
-                        modifier = Modifier.wrapContentSize().padding(end = 6.dp),
-                        messageTime = messageTime,
-                        messageStatus = messageStatus
-                    )
-                }
-            )
-        }
-    }
-}
-
-@Composable
-private fun ReceivedMessageRow(text: String, messageTime: String) {
-    // Whole column that contains chat bubble and padding on start or end
-    Column(
-        horizontalAlignment = Alignment.Start,
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(top = 2.dp, bottom = 2.dp)
-//            .background(Color.LightGray)
-            .padding(start = 8.dp, end = 60.dp)
-
-    ) {
-
-        // This is chat bubble
-        SubcomposeColumn(
-            modifier = Modifier
-                .shadow(1.dp, RoundedCornerShape(8.dp))
-                .clip(RoundedCornerShape(8.dp))
-                .background(Color.White)
-                .clickable { },
-
-            mainContent = {
-                // 💬 Quoted message
-                QuotedMessage(
-                    modifier = Modifier
-                        .padding(top = 4.dp, start = 4.dp, end = 4.dp)
-                        // 🔥 This is required to set Surface height before text is set
-                        .height(IntrinsicSize.Min)
-                        .background(ReceivedQuoteColor, shape = RoundedCornerShape(8.dp))
-                        .clip(shape = RoundedCornerShape(8.dp))
-                        .clickable {
-
-                        },
-                    quotedImage = R.drawable.landscape1
-                )
-            }
-        ) {
-
-            println("📝 ReceivedMessageRow() in dependent() IntSize: $it")
-
-            ChatFlexBoxLayout(
-                modifier = Modifier
-                    .padding(start = 2.dp, top = 2.dp, end = 4.dp, bottom = 2.dp),
-                text = text,
-                messageStat = {
-                    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                        Text(
-                            modifier = Modifier.padding(top = 1.dp, bottom = 1.dp, end = 4.dp),
-                            text = messageTime,
-                            fontSize = 12.sp
-                        )
-                    }
-                }
-            )
-        }
     }
 }
 

@@ -2,7 +2,9 @@ package com.smarttoolfactory.lib
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.*
+import androidx.compose.ui.layout.Measurable
+import androidx.compose.ui.layout.Placeable
+import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntSize
 
@@ -31,14 +33,33 @@ fun SubcomposeColumn(
                 )
             }
 
+//        println(
+//            "✏️ SubcomposeColumn() maxSize " +
+//                    "width: ${maxSize.width}, height: ${maxSize.height}, " +
+//                    "placeable size: ${placeables.size} CONSTRAINTS: $constraints"
+//        )
+
         // Remeasure every element using width of longest item as minWidth of Constraint
         if (!placeables.isNullOrEmpty() && placeables.size > 1) {
+
+//            println(
+//                "✏️✏️ SubcomposeColumn() REMEASURE MAIN COMPONENT " +
+//                        "maxSize $maxSize"
+//            )
+
             placeables = subcompose(recompositionIndex, content).map { measurable: Measurable ->
                 measurable.measure(Constraints(maxSize.width, constraints.maxWidth))
             }
         }
 
         layout(maxSize.width, maxSize.height) {
+
+            println(
+                "✏️✏️✏️️ SubcomposeColumn() layout()-> " +
+                        "maxSize width: ${maxSize.width}, height: ${maxSize.height}, " +
+                        "CONSTRAINTS: $constraints"
+            )
+
             var yPos = 0
             placeables.forEach { placeable: Placeable ->
                 placeable.placeRelative(0, yPos)

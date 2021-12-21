@@ -13,8 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.smarttoolfactory.dynamicmessagebox.chat.MessageTimeText
-import com.smarttoolfactory.dynamicmessagebox.chat.QuotedMessageAlt
+import com.smarttoolfactory.dynamicmessagebox.chat.*
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.Orange400
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentQuoteColor
 import com.smarttoolfactory.lib.ChatFlexBoxLayout
@@ -106,57 +105,56 @@ fun ChatAndWidthImplementation() {
 //            QuotedMessage(
 //                modifier = Modifier
 //                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+//                    // ⚠️ This is not working with ConstraintLayout
 //                    // 🔥 This is required to set Surface height before text is set
-//                    .height(60.dp)
-//                    .width(180.dp)
 //                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
+////                    .height(IntrinsicSize.Min)
+//                    .height(60.dp)
+//                    .width(160.dp)
 //                    .clip(shape = RoundedCornerShape(8.dp))
-//                    .clickable {
-//
-//                    },
-//                quotedMessage = quote,
+//                    .clickable {},
+//                quotedImage = R.drawable.landscape1
 //            )
 
-            QuotedMessageAlt(
-                modifier = Modifier
-//                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
-                    // 🔥 This is required to set Surface height before text is set
-                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
-                    .clip(shape = RoundedCornerShape(8.dp))
-                    .clickable {
+//            QuotedMessageAlt(
+//                modifier = Modifier
+////                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+//                    // 🔥 This is required to set Surface height before text is set
+//                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
+//                    .height(IntrinsicSize.Min)
+//                    .clip(shape = RoundedCornerShape(8.dp))
+//                    .clickable {},
+////                quotedMessage = quote
+//                quotedImage = R.drawable.landscape1
+//            )
 
-                    },
-//                quotedMessage = quote
-                quotedImage = R.drawable.landscape1
+//            SentMessageRow(
+//                text = message,
+//                quotedMessage = quote,
+//                messageTime = sdf.format(System.currentTimeMillis()),
+//                messageStatus = messageStatus
+//            )
+//
+            SentMessageRow(
+                text = message,
+                quotedImage = R.drawable.landscape1,
+                messageTime = sdf.format(System.currentTimeMillis()),
+                messageStatus = messageStatus
             )
 
-//            SentMessageRow(
-//                text = message,
-//                quotedMessage = quote,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//                messageStatus = messageStatus
-//            )
+            SentMessageRow2(
+                text = message,
+                quotedImage = R.drawable.landscape1,
+                messageTime = sdf.format(System.currentTimeMillis()),
+                messageStatus = messageStatus
+            )
 
-//            SentMessageRow(
-//                text = message,
-//                quotedImage = R.drawable.landscape1,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//                messageStatus = messageStatus
-//            )
-//
-//            SentMessageRow2(
-//                text = message,
-//                quotedImage = R.drawable.landscape1,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//                messageStatus = messageStatus
-//            )
-//
-//            SentMessageRowAlt(
-//                text = message,
-//                quotedImage = R.drawable.landscape1,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//                messageStatus = messageStatus
-//            )
+            SentMessageRowAlt(
+                text = message,
+                quotedImage = R.drawable.landscape1,
+                messageTime = sdf.format(System.currentTimeMillis()),
+                messageStatus = messageStatus
+            )
 
 
 //            ReceivedMessageRow(
