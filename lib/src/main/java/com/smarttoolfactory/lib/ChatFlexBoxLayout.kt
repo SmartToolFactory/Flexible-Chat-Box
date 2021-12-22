@@ -1,5 +1,6 @@
 package com.smarttoolfactory.lib
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Text
@@ -135,9 +136,7 @@ fun ChatFlexBoxLayout(
     val content = @Composable {
 
         Message(
-            modifier = modifier
-                .padding(horizontal = 6.dp, vertical = 6.dp)
-                .wrapContentSize(),
+            modifier = Modifier.padding(horizontal = 6.dp, vertical = 4.dp),
             text = text,
             color = color,
             fontSize = fontSize,

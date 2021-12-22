@@ -76,7 +76,7 @@ fun ChatAndWidthImplementation() {
                 Spacer(modifier = Modifier.height(4.dp))
                 MessageRow(
                     text = "Multiple line sample message that shorter \n" +
-                            "second line longer than first line...",
+                            "second line longer than first line.........",
                     messageTime = sdf.format(System.currentTimeMillis()),
                     messageStatus = messageStatus
                 )
@@ -129,6 +129,11 @@ fun ChatAndWidthImplementation() {
                 quotedImage = R.drawable.landscape1
             )
 
+            SentMessageRowAlt(
+                text = message,
+                messageTime = sdf.format(System.currentTimeMillis()),
+                messageStatus = messageStatus
+            )
 
             SentMessageRowAlt(
                 text = message,
@@ -144,6 +149,10 @@ fun ChatAndWidthImplementation() {
                 messageStatus = messageStatus
             )
 
+            ReceivedMessageRowAlt(
+                text = message,
+                messageTime = sdf.format(System.currentTimeMillis()),
+            )
 
             ReceivedMessageRowAlt(
                 text = message,

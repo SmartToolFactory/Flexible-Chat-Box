@@ -71,7 +71,7 @@ fun SentMessageRow(
                     modifier = Modifier.padding(
                         start = 2.dp,
                         top = 2.dp,
-                        end = 4.dp,
+                        end = 8.dp,
                         bottom = 2.dp
                     ),
                     text = text,
@@ -145,7 +145,7 @@ fun SentMessageRow2(
                     modifier = Modifier.padding(
                         start = 2.dp,
                         top = 2.dp,
-                        end = 4.dp,
+                        end = 8.dp,
                         bottom = 2.dp
                     ),
                     text = text,
@@ -219,7 +219,7 @@ fun SentMessageRowAlt(
                     modifier = Modifier.padding(
                         start = 2.dp,
                         top = 2.dp,
-                        end = 4.dp,
+                        end = 8.dp,
                         bottom = 2.dp
                     ),
                     text = text,

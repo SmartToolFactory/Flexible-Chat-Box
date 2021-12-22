@@ -48,11 +48,10 @@ fun FullChatImplementation() {
                 val messageStatus = remember { MessageStatus.values()[Random.nextInt(3)] }
 
                 // Toggle between sent and received message
-                when (message.id.toInt() % 4) {
+                when (message.id.toInt() % 6) {
                     1 -> {
                         SentMessageRowAlt(
                             text = message.message,
-                            quotedMessage = "Quote message",
                             messageTime = sdf.format(System.currentTimeMillis()),
                             messageStatus = messageStatus
                         )
@@ -61,12 +60,27 @@ fun FullChatImplementation() {
                     2 -> {
                         ReceivedMessageRowAlt(
                             text = message.message,
+                            messageTime = sdf.format(System.currentTimeMillis()),
+                        )
+                    }
+                    3 -> {
+                        SentMessageRowAlt(
+                            text = message.message,
+                            quotedMessage = "Quote message",
+                            messageTime = sdf.format(System.currentTimeMillis()),
+                            messageStatus = messageStatus
+                        )
+
+                    }
+                    4 -> {
+                        ReceivedMessageRowAlt(
+                            text = message.message,
                             quotedMessage = "Quote",
                             messageTime = sdf.format(System.currentTimeMillis()),
                         )
 
                     }
-                    3 -> {
+                    5 -> {
                         SentMessageRowAlt(
                             text = message.message,
                             quotedImage = R.drawable.landscape1,
