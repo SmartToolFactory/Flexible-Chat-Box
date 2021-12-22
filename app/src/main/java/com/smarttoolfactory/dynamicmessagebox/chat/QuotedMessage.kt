@@ -31,6 +31,7 @@ import androidx.constraintlayout.compose.ConstraintSet
 import com.smarttoolfactory.dynamicmessagebox.getRandomColor
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.QuoteTextColor
 
+// FIXME This one is not correctly positioned, use barrier with ConstraintLayout
 /**
  * Quote contains quoted message or quoted image like chat apps replied messages do.
  *
@@ -112,7 +113,7 @@ fun QuotedMessage(
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .layoutId("image")
-                    .aspectRatio(1f)
+                    .size(60.dp)
                     .clip(RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp))
             )
         }
@@ -151,9 +152,9 @@ fun QuotedMessageAlt(
     val color = remember { getRandomColor() }
 
     println("🤔 QuotedMessageAlt() color: $color")
-    QuoteImageRow(modifier = modifier.background(Color.Green),
+    QuoteImageRow(modifier = modifier,
         content = {
-            Row() {
+            Row {
 
                 Surface(
                     color = color,
@@ -210,7 +211,7 @@ fun QuotedMessageAlt(
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier
                         .layoutId("image")
-                        .aspectRatio(1f)
+                        .size(60.dp)
                         .clip(RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp))
                 )
             }

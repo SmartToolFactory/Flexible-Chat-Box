@@ -12,7 +12,7 @@ There are 3 implementation files to try `ChatFlexBoxLayout`, and `SubcomposeColu
 
 | Full Chat      | Chat Width   | Resizable|
 | ----------|-----------| -----------|
-| <img src="./screenshots/full_chat_implementation.png"/> | <img src="./screenshots/chat_width_implementation.png"/> | <img src="./screenshots/resizable_implementation.gif"/> |
+| <img src="./screenshots/full_chat_implementation.gif"/> | <img src="./screenshots/chat_width_implementation.png"/> | <img src="./screenshots/resizable_implementation.gif"/> |
 
 
 ### ChatFlexBoxLayout

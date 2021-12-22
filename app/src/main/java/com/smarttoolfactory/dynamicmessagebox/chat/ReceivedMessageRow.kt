@@ -20,6 +20,9 @@ import com.smarttoolfactory.dynamicmessagebox.ui.theme.ReceivedQuoteColor
 import com.smarttoolfactory.lib.ChatFlexBoxLayout
 import com.smarttoolfactory.lib.SubcomposeColumn
 
+var recipientRegisteredName = "+44 515 1245 768"
+var isRecipientRegistered = true
+var recipientOriginalName = "Some user"
 
 /**
  * This received message row uses [SubcomposeColumn] with **mainContent** and **dependentContent**
@@ -52,9 +55,9 @@ fun ReceivedMessageRow(
             content = {
 
                 RecipientName(
-                    name = "+44 515 1245 768",
-                    isName = true,
-//                        altName = "Random User"
+                    name = recipientRegisteredName,
+                    isName = isRecipientRegistered,
+                    altName = recipientOriginalName
                 )
 
                 if (quotedMessage != null || quotedImage != null) {
@@ -123,10 +126,12 @@ fun ReceivedMessageRow2(
                 .clickable { },
             mainContent = {
 
+                // TODO THIS composable is not resized correctly, use other SubcomposeColumn,
+                //  this is for demonstration
                 RecipientName(
-                    name = "+44 515 1245 768",
-                    isName = true,
-//                        altName = "Random User"
+                    name = recipientRegisteredName,
+                    isName = isRecipientRegistered,
+                    altName = recipientOriginalName
                 )
 
                 if (quotedMessage != null || quotedImage != null) {
@@ -184,7 +189,6 @@ fun ReceivedMessageRowAlt(
             .wrapContentHeight()
             .padding(start = 8.dp, end = 60.dp, top = 2.dp, bottom = 2.dp)
 
-
     ) {
 
         // This is chat bubble
@@ -196,8 +200,9 @@ fun ReceivedMessageRowAlt(
                 .clickable { },
             content = {
                 RecipientName(
-                    name = "+44 515 1245 768",
-                    isName = true,
+                    name = recipientRegisteredName,
+                    isName = isRecipientRegistered,
+                    altName = recipientOriginalName
                 )
 
                 if (quotedMessage != null || quotedImage != null) {

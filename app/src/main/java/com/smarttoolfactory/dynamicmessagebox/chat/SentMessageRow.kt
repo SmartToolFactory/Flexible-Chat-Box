@@ -56,8 +56,7 @@ fun SentMessageRow(
                             .padding(top = 4.dp, start = 4.dp, end = 4.dp)
                             // ⚠️ This is not working with ConstraintLayout
                             // 🔥 This is required to set Surface height before text is set
-//                            .height(IntrinsicSize.Min)
-                            .height(60.dp)
+                            .height(IntrinsicSize.Min)
                             .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
                             .clip(shape = RoundedCornerShape(8.dp))
                             .clickable {
@@ -123,6 +122,9 @@ fun SentMessageRow2(
                 .clickable { },
 
             mainContent = {
+
+                println("🚙 SentMessageRow2() MAIN CONTENT")
+
                 // 💬 Quoted message
                 if (quotedMessage != null || quotedImage != null) {
                     QuotedMessageAlt(
@@ -132,9 +134,7 @@ fun SentMessageRow2(
                             .height(IntrinsicSize.Min)
                             .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
                             .clip(shape = RoundedCornerShape(8.dp))
-                            .clickable {
-
-                            },
+                            .clickable {},
                         quotedMessage = quotedMessage,
                         quotedImage = quotedImage
                     )
@@ -204,8 +204,7 @@ fun SentMessageRowAlt(
                         modifier = Modifier
                             .padding(top = 4.dp, start = 4.dp, end = 4.dp)
                             // 🔥 This is required to set Surface height before text is set
-//                            .height(IntrinsicSize.Min)
-                            .size(60.dp)
+                            .height(IntrinsicSize.Min)
                             .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
                             .clip(shape = RoundedCornerShape(8.dp))
                             .clickable {
