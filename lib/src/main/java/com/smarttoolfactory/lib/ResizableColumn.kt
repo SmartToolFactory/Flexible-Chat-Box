@@ -33,19 +33,19 @@ fun SubcomposeColumn(
                 )
             }
 
-//        println(
-//            "✏️ SubcomposeColumn() columnSize " +
-//                    "width: ${columnSize.width}, height: ${columnSize.height}, " +
-//                    "placeable size: ${placeables.size} CONSTRAINTS: $constraints"
-//        )
+        println(
+            "✏️ SubcomposeColumn() columnSize " +
+                    "width: ${columnSize.width}, height: ${columnSize.height}, " +
+                    "placeable size: ${placeables.size} CONSTRAINTS: $constraints"
+        )
 
         // Remeasure every element using width of longest item as minWidth of Constraint
         if (!placeables.isNullOrEmpty() && placeables.size > 1) {
 
-//            println(
-//                "✏️✏️ SubcomposeColumn() REMEASURE MAIN COMPONENT " +
-//                        "columnSize columnSize"
-//            )
+            println(
+                "✏️✏️ SubcomposeColumn() REMEASURE MAIN COMPONENT " +
+                        "columnSize columnSize"
+            )
 
             placeables = subcompose(recompositionIndex, content).map { measurable: Measurable ->
                 measurable.measure(Constraints(columnSize.width, constraints.maxWidth))
@@ -54,11 +54,11 @@ fun SubcomposeColumn(
 
         layout(columnSize.width, columnSize.height) {
 
-//            println(
-//                "✏️✏️✏️️ SubcomposeColumn() layout()-> " +
-//                        "columnSize width: ${columnSize.width}, height: ${columnSize.height}, " +
-//                        "CONSTRAINTS: $constraints"
-//            )
+            println(
+                "✏️✏️✏️️ SubcomposeColumn() layout()-> " +
+                        "columnSize width: ${columnSize.width}, height: ${columnSize.height}, " +
+                        "CONSTRAINTS: $constraints"
+            )
 
             var yPos = 0
             placeables.forEach { placeable: Placeable ->

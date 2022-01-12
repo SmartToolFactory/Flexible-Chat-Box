@@ -50,7 +50,7 @@ fun FullChatImplementation() {
                 // Toggle between sent and received message
                 when (message.id.toInt() % 6) {
                     1 -> {
-                        SentMessageRowAlt(
+                        SentMessageRow(
                             text = message.message,
                             messageTime = sdf.format(System.currentTimeMillis()),
                             messageStatus = messageStatus
@@ -58,13 +58,13 @@ fun FullChatImplementation() {
 
                     }
                     2 -> {
-                        ReceivedMessageRowAlt(
+                        ReceivedMessageRow(
                             text = message.message,
                             messageTime = sdf.format(System.currentTimeMillis()),
                         )
                     }
                     3 -> {
-                        SentMessageRowAlt(
+                        SentMessageRow(
                             text = message.message,
                             quotedMessage = "Quote message",
                             messageTime = sdf.format(System.currentTimeMillis()),
@@ -73,7 +73,7 @@ fun FullChatImplementation() {
 
                     }
                     4 -> {
-                        ReceivedMessageRowAlt(
+                        ReceivedMessageRow(
                             text = message.message,
                             quotedMessage = "Quote",
                             messageTime = sdf.format(System.currentTimeMillis()),
@@ -81,7 +81,7 @@ fun FullChatImplementation() {
 
                     }
                     5 -> {
-                        SentMessageRowAlt(
+                        SentMessageRow(
                             text = message.message,
                             quotedImage = R.drawable.landscape1,
                             messageTime = sdf.format(System.currentTimeMillis()),
@@ -90,7 +90,7 @@ fun FullChatImplementation() {
 
                     }
                     else -> {
-                        ReceivedMessageRowAlt(
+                        ReceivedMessageRow(
                             text = message.message,
                             quotedImage = R.drawable.landscape2,
                             messageTime = sdf.format(System.currentTimeMillis()),
