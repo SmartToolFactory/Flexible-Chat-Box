@@ -77,6 +77,57 @@ Since `TextLayout` is required to get text length, last line width and other pro
     )
 ```
 
+Another overload of `ChatFlexBoxLayout` takes two Composables as arguments which 
+custom **message** Composable can be used instead of String or AnnotatedString.
+```
+@Composable
+fun ChatFlexBoxLayout(
+    modifier: Modifier,
+    message: @Composable () -> Unit,
+    messageStat: @Composable () -> Unit = {},
+    chatRowData: ChatRowData,
+    onMeasure: ((ChatRowData) -> Unit)? = null
+) {
+  //...
+}
+```
+
+Use with `remember { ChatRowData() }` to provide stats and invoke `measureText(chatRowData, it)`
+to set text properties to this data
+```
+
+            val chatRowData = remember { ChatRowData() }
+
+            ChatFlexBoxLayout(
+                modifier = Modifier.padding(
+                    start = 2.dp,
+                    top = 2.dp,
+                    end = 8.dp,
+                    bottom = 2.dp
+                ),
+                message = {
+                    Text(
+                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 4.dp),
+                        text = text,
+                        fontSize = 16.sp,
+                        onTextLayout = {
+                            // ⚠️ THIS IS REQUIRED TO MEASURE Text size and get line count
+                            measureText(chatRowData, it)
+                        }
+                    )
+                },
+                messageStat = {
+                    MessageTimeText(
+                        modifier = Modifier.wrapContentSize(),
+                        messageTime = messageTime,
+                        messageStatus = messageStatus
+                    )
+                },
+                chatRowData = chatRowData
+            )
+        }
+```
+
 ## SubcomposeColumn
 
 This is a layout that uses SubcomposeLayout to find longest child and then remeasure again

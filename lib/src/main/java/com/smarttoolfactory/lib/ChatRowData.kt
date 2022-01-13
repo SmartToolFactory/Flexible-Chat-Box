@@ -6,16 +6,21 @@ package com.smarttoolfactory.lib
  *
  * [textWidth], [text]
  */
-data class ChatRowData(
-    var text: String = "",
+class ChatRowData {
+
+    var text: String = ""
+        internal set
+
     // Width of the text without padding
-    var textWidth: Int = 0,
-    var lastLineWidth: Float = 0f ,
-    var lineCount: Int = 0,
-) {
+    var textWidth: Int = 0
+        internal set
+    var lastLineWidth: Float = 0f
+        internal set
+    var lineCount: Int = 0
+        internal set
 
     var rowWidth: Int = 0
-    internal set
+        internal set
 
     var rowHeight: Int = 0
         internal set

@@ -36,6 +36,9 @@ fun ReceivedMessageRow(
     quotedImage: Int? = null,
     messageTime: String,
 ) {
+
+    println("🚕 ReceivedMessageRow() ROOT text: $text")
+
     // Whole column that contains chat bubble and padding on start or end
     Column(
         horizontalAlignment = Alignment.Start,
@@ -54,6 +57,9 @@ fun ReceivedMessageRow(
                 .background(Color.White)
                 .clickable { },
             content = {
+
+                println("🚕🚗 ReceivedMessageRow() SubcomposeColumn() text: $text")
+
                 RecipientName(
                     name = recipientRegisteredName,
                     isName = isRecipientRegistered,
@@ -179,6 +185,9 @@ fun ReceivedMessageRowAlt2(
     quotedImage: Int? = null,
     messageTime: String,
 ) {
+
+    println("🚄 SentMessageRowAlt2() ROOT text: $text")
+
     // Whole column that contains chat bubble and padding on start or end
     Column(
         horizontalAlignment = Alignment.Start,
@@ -198,27 +207,30 @@ fun ReceivedMessageRowAlt2(
                 .clickable { },
             mainContent = {
 
-                // TODO THIS composable is not resized correctly, use other SubcomposeColumn,
-                //  this is for demonstration
-                RecipientName(
-                    name = recipientRegisteredName,
-                    isName = isRecipientRegistered,
-                    altName = recipientOriginalName
-                )
+                println("🚄🚀 SentMessageRowAlt2() SubcomposeColumn() text: $text")
 
-                if (quotedMessage != null || quotedImage != null) {
-                    // 💬 Quoted message
-                    QuotedMessage(
-                        modifier = Modifier
-                            .padding(top = 4.dp, start = 4.dp, end = 4.dp)
-                            // 🔥 This is required to set Surface height before text is set
-                            .height(IntrinsicSize.Min)
-                            .background(ReceivedQuoteColor, shape = RoundedCornerShape(8.dp))
-                            .clip(shape = RoundedCornerShape(8.dp))
-                            .clickable {},
-                        quotedMessage = quotedMessage,
-                        quotedImage = quotedImage
+                Column {
+
+                    RecipientName(
+                        name = recipientRegisteredName,
+                        isName = isRecipientRegistered,
+                        altName = recipientOriginalName
                     )
+
+                    if (quotedMessage != null || quotedImage != null) {
+                        // 💬 Quoted message
+                        QuotedMessage(
+                            modifier = Modifier
+                                .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+                                // 🔥 This is required to set Surface height before text is set
+                                .height(IntrinsicSize.Min)
+                                .background(ReceivedQuoteColor, shape = RoundedCornerShape(8.dp))
+                                .clip(shape = RoundedCornerShape(8.dp))
+                                .clickable {},
+                            quotedMessage = quotedMessage,
+                            quotedImage = quotedImage
+                        )
+                    }
                 }
             },
             dependentContent = {

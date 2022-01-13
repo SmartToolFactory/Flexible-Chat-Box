@@ -44,90 +44,90 @@ fun ChatAndWidthImplementation() {
                 .verticalScroll(rememberScrollState())
         ) {
 
-//            Column(
-//                horizontalAlignment = Alignment.End,
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .wrapContentHeight()
-//                    .padding(top = 2.dp, bottom = 2.dp)
-//                    .background(Color.LightGray)
-//                    .padding(start = 60.dp, end = 8.dp, top = 2.dp, bottom = 2.dp)
-//
-//            ) {
-//                MessageRow(
-//                    text = "Single line message",
-//                    messageTime = sdf.format(System.currentTimeMillis()),
-//                    messageStatus = messageStatus
-//                )
-//                Spacer(modifier = Modifier.height(4.dp))
-//                MessageRow(
-//                    text = "Message ad stat is longer than parent",
-//                    messageTime = sdf.format(System.currentTimeMillis()),
-//                    messageStatus = messageStatus
-//                )
-//                Spacer(modifier = Modifier.height(4.dp))
-//
-//                MessageRow(
-//                    text = "Multiple line sample message that shorter \n" +
-//                            "second line shorter",
-//                    messageTime = sdf.format(System.currentTimeMillis()),
-//                    messageStatus = messageStatus
-//                )
-//                Spacer(modifier = Modifier.height(4.dp))
-//                MessageRow(
-//                    text = "Multiple line sample message that shorter \n" +
-//                            "second line longer than first line.........",
-//                    messageTime = sdf.format(System.currentTimeMillis()),
-//                    messageStatus = messageStatus
-//                )
-//                Spacer(modifier = Modifier.height(4.dp))
-//            }
-//
-//            MessageRow(
-//                text = message,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//                messageStatus = messageStatus
-//            )
-//            Spacer(modifier = Modifier.height(4.dp))
-//
-//
-//            // FIXME This one is not correctly positioned, use barrier with ConstraintLayout
-//            QuotedMessageWithConstraintLayout(
-//                modifier = Modifier
-//                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
-//                    // 🔥 This is required to set Surface height before text is set
-//                    .height(IntrinsicSize.Min)
-//                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
-//                    .clip(shape = RoundedCornerShape(8.dp))
-//                    .clickable {
-//
-//                    },
+            Column(
+                horizontalAlignment = Alignment.End,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(top = 2.dp, bottom = 2.dp)
+                    .background(Color.LightGray)
+                    .padding(start = 60.dp, end = 8.dp, top = 2.dp, bottom = 2.dp)
+
+            ) {
+                MessageRow(
+                    text = "Single line message",
+                    messageTime = sdf.format(System.currentTimeMillis()),
+                    messageStatus = messageStatus
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                MessageRow(
+                    text = "Message ad stat is longer than parent",
+                    messageTime = sdf.format(System.currentTimeMillis()),
+                    messageStatus = messageStatus
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+
+                MessageRow(
+                    text = "Multiple line sample message that shorter \n" +
+                            "second line shorter",
+                    messageTime = sdf.format(System.currentTimeMillis()),
+                    messageStatus = messageStatus
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                MessageRow(
+                    text = "Multiple line sample message that shorter \n" +
+                            "second line longer than first line.........",
+                    messageTime = sdf.format(System.currentTimeMillis()),
+                    messageStatus = messageStatus
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+            }
+
+            MessageRow(
+                text = message,
+                messageTime = sdf.format(System.currentTimeMillis()),
+                messageStatus = messageStatus
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+
+
+            // FIXME This one is not correctly positioned, use barrier with ConstraintLayout
+            QuotedMessageWithConstraintLayout(
+                modifier = Modifier
+                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+                    // 🔥 This is required to set Surface height before text is set
+                    .height(IntrinsicSize.Min)
+                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
+                    .clip(shape = RoundedCornerShape(8.dp))
+                    .clickable {
+
+                    },
+                quotedMessage = quote
+            )
+
+            QuotedMessageWithConstraintLayout(
+                modifier = Modifier
+                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+                    // ⚠️ This is not working with ConstraintLayout
+                    // 🔥 This is required to set Surface height before text is set
+                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
+                    .height(IntrinsicSize.Min)
+                    .clip(shape = RoundedCornerShape(8.dp))
+                    .clickable {},
+                quotedImage = R.drawable.landscape1
+            )
+
+            QuotedMessage(
+                modifier = Modifier
+                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
+                    // 🔥 This is required to set Surface height before text is set
+                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
+                    .height(IntrinsicSize.Min)
+                    .clip(shape = RoundedCornerShape(8.dp))
+                    .clickable {},
 //                quotedMessage = quote
-//            )
-//
-//            QuotedMessageWithConstraintLayout(
-//                modifier = Modifier
-//                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
-//                    // ⚠️ This is not working with ConstraintLayout
-//                    // 🔥 This is required to set Surface height before text is set
-//                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
-//                    .height(IntrinsicSize.Min)
-//                    .clip(shape = RoundedCornerShape(8.dp))
-//                    .clickable {},
-//                quotedImage = R.drawable.landscape1
-//            )
-//
-//            QuotedMessage(
-//                modifier = Modifier
-//                    .padding(top = 4.dp, start = 4.dp, end = 4.dp)
-//                    // 🔥 This is required to set Surface height before text is set
-//                    .background(SentQuoteColor, shape = RoundedCornerShape(8.dp))
-//                    .height(IntrinsicSize.Min)
-//                    .clip(shape = RoundedCornerShape(8.dp))
-//                    .clickable {},
-////                quotedMessage = quote
-//                quotedImage = R.drawable.landscape1
-//            )
+                quotedImage = R.drawable.landscape1
+            )
 
             SentMessageRow(
                 text = message,
@@ -136,42 +136,36 @@ fun ChatAndWidthImplementation() {
                 messageStatus = messageStatus
             )
 
-//            SentMessageRowAlt1(
-//                text = message,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//                messageStatus = messageStatus
-//            )
+            SentMessageRow(
+                text = message,
+                quotedMessage = quote,
+                messageTime = sdf.format(System.currentTimeMillis()),
+                messageStatus = messageStatus
+            )
 
-//            SentMessageRow(
-//                text = message,
-//                quotedMessage = quote,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//                messageStatus = messageStatus
-//            )
-//
-//            SentMessageRow(
-//                text = message,
-//                quotedImage = R.drawable.landscape1,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//                messageStatus = messageStatus
-//            )
-//
-//            ReceivedMessageRow(
-//                text = message,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//            )
-//
-//            ReceivedMessageRow(
-//                text = message,
-//                quotedMessage = quote,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//            )
-//
-//            ReceivedMessageRow(
-//                text = message,
-//                quotedImage = R.drawable.landscape2,
-//                messageTime = sdf.format(System.currentTimeMillis()),
-//            )
+            SentMessageRow(
+                text = message,
+                quotedImage = R.drawable.landscape1,
+                messageTime = sdf.format(System.currentTimeMillis()),
+                messageStatus = messageStatus
+            )
+
+            ReceivedMessageRow(
+                text = message,
+                messageTime = sdf.format(System.currentTimeMillis()),
+            )
+
+            ReceivedMessageRow(
+                text = message,
+                quotedMessage = quote,
+                messageTime = sdf.format(System.currentTimeMillis()),
+            )
+
+            ReceivedMessageRow(
+                text = message,
+                quotedImage = R.drawable.landscape2,
+                messageTime = sdf.format(System.currentTimeMillis()),
+            )
         }
 
         OutlinedTextField(

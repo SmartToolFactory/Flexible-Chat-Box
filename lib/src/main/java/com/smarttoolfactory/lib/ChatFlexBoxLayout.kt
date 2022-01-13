@@ -286,7 +286,7 @@ internal fun ChatLayout(
 
             println(
                 "⚠️⚠️⚠️ ChatLayout()-> layout() status x: ${chatRowData.parentWidth - (status?.width ?: 0)}, " +
-                        "y: ${chatRowData.rowHeight - (status?.height ?: 0)}"
+                        "y: ${chatRowData.rowHeight - (status?.height ?: 0)}\n\n"
             )
 
             message.placeRelative(0, 0)

@@ -36,7 +36,7 @@ internal fun calculateChatWidthAndHeight(
 
         val padding = (message.measuredWidth - chatRowData.textWidth) / 2
         println(
-            "🌽 CHAT INIT calculate() text: ${chatRowData.text}" +
+            "🌽 calculateChatWidthAndHeight() text: ${chatRowData.text}" +
                     "lineCount: $lineCount, parentWidth: $parentWidth, lastLineWidth: $lastLineWidth\n" +
                     "MESSAGE width: ${message.width}, measured: ${message.measuredWidth}," +
                     " textWidth: ${chatRowData.textWidth} padding: $padding\n" +
@@ -49,23 +49,23 @@ internal fun calculateChatWidthAndHeight(
             chatRowData.rowWidth = message.measuredWidth
             chatRowData.rowHeight = message.measuredHeight + status.measuredHeight
             chatRowData.measuredType = 0
-//            println("🤔 CHAT calculate() 0 for ${chatRowData.textWidth + padding}")
+//            println("🤔 calculateChatWidthAndHeight() 0 for ${chatRowData.textWidth + padding}")
         } else if (lineCount > 1 && lastLineWidth + status.measuredWidth < chatRowData.textWidth + padding) {
             // Multiple lines and last line and status is shorter than text size and right padding
             chatRowData.rowWidth = message.measuredWidth
             chatRowData.rowHeight = message.measuredHeight
             chatRowData.measuredType = 1
-//            println("🔥 CHAT calculate() 1 for ${message.measuredWidth - padding}")
+//            println("🔥 calculateChatWidthAndHeight() 1 for ${message.measuredWidth - padding}")
         } else if (lineCount == 1 && message.width + status.measuredWidth >= parentWidth) {
             chatRowData.rowWidth = message.measuredWidth
             chatRowData.rowHeight = message.measuredHeight + status.measuredHeight
             chatRowData.measuredType = 2
-//            println("🎃 CHAT calculate() 2")
+//            println("🎃 calculateChatWidthAndHeight() 2")
         } else {
             chatRowData.rowWidth = message.measuredWidth + status.measuredWidth
             chatRowData.rowHeight = message.measuredHeight
             chatRowData.measuredType = 3
-//            println("🚀 CHAT calculate() 3")
+//            println("🚀 calculateChatWidthAndHeight() 3")
         }
     } else {
         chatRowData.rowWidth = message.width

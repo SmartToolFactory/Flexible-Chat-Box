@@ -31,6 +31,9 @@ fun RecipientName(
             .padding(start = 4.dp, top = 2.dp, end = 8.dp),
         verticalAlignment = Alignment.Top
     ) {
+
+        println("📌 RecipientName name: $name")
+
         Text(
             modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
             text = name,

@@ -34,6 +34,7 @@ fun SentMessageRow(
     messageStatus: MessageStatus
 ) {
 
+    println("🚕 SentMessageRow() ROOT text: $text")
 
     // Whole column that contains chat bubble and padding on start or end
     Column(
@@ -54,7 +55,7 @@ fun SentMessageRow(
 
             content = {
 
-                println("🚕 SentMessageRow() text: $text")
+                println("🚕🚗 SentMessageRow() SubcomposeColumn() text: $text")
 
                 // 💬 Quoted message
                 if (quotedMessage != null || quotedImage != null) {
@@ -112,6 +113,9 @@ fun SentMessageRowAlt1(
 
     val chatRowData = remember { ChatRowData() }
 
+    println("🚛 SentMessageRowAlt1() ROOT text: $text")
+
+
     // Whole column that contains chat bubble and padding on start or end
     Column(
         horizontalAlignment = Alignment.End,
@@ -134,7 +138,7 @@ fun SentMessageRowAlt1(
 
             content = {
 
-                println("🏎 SentMessageRowAlt1() text: $text")
+                println("🚛🏎 SentMessageRowAlt1() text: $text")
 
                 // 💬 Quoted message
                 if (quotedMessage != null || quotedImage != null) {
@@ -168,7 +172,6 @@ fun SentMessageRowAlt1(
                             onTextLayout = {
                                 // ⚠️ THIS IS REQUIRED TO MEASURE Text size and get line count
                                 measureText(chatRowData, it)
-                                println("🤣 SentMessageRow MEASURED $chatRowData")
                             }
                         )
                     },
@@ -199,7 +202,8 @@ fun SentMessageRowAlt2(
     messageStatus: MessageStatus
 ) {
 
-    println("🚙 SentMessageRowAlt1()")
+    println("🚙 SentMessageRowAlt2() ROOT text: $text")
+
 
     // Whole column that contains chat bubble and padding on start or end
     Column(
@@ -221,7 +225,7 @@ fun SentMessageRowAlt2(
 
             mainContent = {
 
-                println("🚙 SentMessageRowAlt1() MAIN CONTENT")
+                println("🚙🚌 SentMessageRowAlt2() MAIN CONTENT text: $text")
 
                 // 💬 Quoted message
                 if (quotedMessage != null || quotedImage != null) {
@@ -273,7 +277,7 @@ fun SentMessageRowAlt3(
     messageStatus: MessageStatus
 ) {
 
-    println("🚗 SentMessageRowAlt2()")
+    println("🚗 SentMessageRowAlt3() ROOT text: $text")
     // Whole column that contains chat bubble and padding on start or end
     Column(
         horizontalAlignment = Alignment.End,
@@ -293,6 +297,9 @@ fun SentMessageRowAlt3(
                 .clickable { },
 
             mainContent = {
+
+                println("🚗🚛 SentMessageRowAlt3() text: $text")
+
                 // 💬 Quoted message
                 if (quotedMessage != null || quotedImage != null) {
                     QuotedMessageWithConstraintLayout(
