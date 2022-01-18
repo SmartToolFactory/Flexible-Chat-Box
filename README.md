@@ -8,7 +8,7 @@ longest children. This is useful for matching quote message and message length a
 calculation. These two composables are useful for creating dynamic message rows that positions children and positions message, message date and message status.
 
 There are 3 implementation files to try `ChatFlexBoxLayout`, and `SubcomposeColumn` which are
-`FullChatImplementation.kt`, `ChatAndWidthImplementation.kt`, and `ResizableColumnImplementation.kt`
+`DemoFullChat.kt`, `DemoChatAndWidth.kt`, and `DemoResizableColumn.kt`
 
 | Full Chat      | Chat Width   | Resizable|
 | ----------|-----------| -----------|

@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     // 🔥 Uncomment only one sample to see each implementation
 //                    ResizableColumnImplementation()
 //                    ChatAndWidthImplementation()
-                    FullChatImplementation()
+                    DemoFullChat()
                 }
             }
         }

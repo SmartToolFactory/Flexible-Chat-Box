@@ -23,7 +23,7 @@ import java.util.*
 import kotlin.random.Random
 
 @Composable
-fun ChatAndWidthImplementation() {
+fun DemoChatAndWidth() {
 
     val sdf = remember { SimpleDateFormat("hh:mm", Locale.ROOT) }
     var quote by remember { mutableStateOf("Quote Message") }

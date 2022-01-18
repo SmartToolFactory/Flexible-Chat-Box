@@ -20,7 +20,7 @@ import com.smarttoolfactory.dynamicmessagebox.ui.theme.Pink400
 import com.smarttoolfactory.lib.SubcomposeColumn
 
 @Composable
-fun ResizableColumnImplementation() {
+fun DemoResizableColumn() {
 
     Column(
         modifier = Modifier

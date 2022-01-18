@@ -19,7 +19,7 @@ import kotlin.random.Random
 
 
 @Composable
-fun FullChatImplementation() {
+fun DemoFullChat() {
 
     val messages = remember { mutableStateListOf<ChatMessage>() }
     val sdf = remember { SimpleDateFormat("hh:mm", Locale.ROOT) }
