@@ -17,7 +17,7 @@ import com.smarttoolfactory.dynamicmessagebox.ui.theme.Blue400
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.Green400
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.Orange400
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.Pink400
-import com.smarttoolfactory.lib.SubcomposeColumn
+import com.smarttoolfactory.chatflexbox.SubcomposeColumn
 
 @Composable
 fun DemoResizableColumn() {

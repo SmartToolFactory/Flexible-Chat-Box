@@ -1,4 +1,4 @@
-package com.smarttoolfactory.lib
+package com.smarttoolfactory.chatflexbox
 
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.text.TextLayoutResult

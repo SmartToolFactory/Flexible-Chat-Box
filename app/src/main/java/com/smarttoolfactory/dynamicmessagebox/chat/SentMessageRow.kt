@@ -16,10 +16,10 @@ import androidx.compose.ui.unit.sp
 import com.smarttoolfactory.dynamicmessagebox.MessageStatus
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentMessageColor
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentQuoteColor
-import com.smarttoolfactory.lib.ChatFlexBoxLayout
-import com.smarttoolfactory.lib.ChatRowData
-import com.smarttoolfactory.lib.SubcomposeColumn
-import com.smarttoolfactory.lib.measureText
+import com.smarttoolfactory.chatflexbox.ChatFlexBoxLayout
+import com.smarttoolfactory.chatflexbox.ChatRowData
+import com.smarttoolfactory.chatflexbox.SubcomposeColumn
+import com.smarttoolfactory.chatflexbox.measureText
 
 /**
  * This sent message row uses overloaded [SubcomposeColumn] function only with **content** arg

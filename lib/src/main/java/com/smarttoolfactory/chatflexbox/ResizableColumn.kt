@@ -1,4 +1,4 @@
-package com.smarttoolfactory.lib
+package com.smarttoolfactory.chatflexbox
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

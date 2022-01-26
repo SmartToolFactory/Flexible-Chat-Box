@@ -1,4 +1,4 @@
-package com.smarttoolfactory.lib
+package com.smarttoolfactory.chatflexbox
 
 /**
  * Class that contains info about chat message text, textWidth, if line count,

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.smarttoolfactory.dynamicmessagebox.chat.*
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.Orange400
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.SentQuoteColor
-import com.smarttoolfactory.lib.ChatFlexBoxLayout
+import com.smarttoolfactory.chatflexbox.ChatFlexBoxLayout
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.random.Random

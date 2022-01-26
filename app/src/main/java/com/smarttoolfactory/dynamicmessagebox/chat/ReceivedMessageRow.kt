@@ -17,8 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.smarttoolfactory.dynamicmessagebox.ui.theme.ReceivedQuoteColor
-import com.smarttoolfactory.lib.ChatFlexBoxLayout
-import com.smarttoolfactory.lib.SubcomposeColumn
+import com.smarttoolfactory.chatflexbox.ChatFlexBoxLayout
+import com.smarttoolfactory.chatflexbox.SubcomposeColumn
 
 var recipientRegisteredName = "+44 515 1245 768"
 var isRecipientRegistered = true

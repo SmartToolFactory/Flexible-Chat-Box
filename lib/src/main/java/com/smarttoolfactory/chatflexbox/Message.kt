@@ -1,4 +1,4 @@
-package com.smarttoolfactory.lib
+package com.smarttoolfactory.chatflexbox
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
