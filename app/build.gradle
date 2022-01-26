@@ -51,8 +51,8 @@ dependencies {
     implementation project(':lib')
 
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
 
     // Jetpack Compose
     implementation "androidx.compose.ui:ui:$compose_version"
@@ -61,11 +61,11 @@ dependencies {
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "androidx.compose.runtime:runtime:$compose_version"
 
-    // Jepack Compose ConstraintLayout
-    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
+    // Jetpack Compose ConstraintLayout
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0"
 
-    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.21.3-beta'
-    implementation 'com.google.accompanist:accompanist-pager:0.21.3-beta'
+    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.22.0-rc'
+    implementation 'com.google.accompanist:accompanist-pager:0.22.0-rc'
 
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
     implementation 'androidx.activity:activity-compose:1.4.0'
