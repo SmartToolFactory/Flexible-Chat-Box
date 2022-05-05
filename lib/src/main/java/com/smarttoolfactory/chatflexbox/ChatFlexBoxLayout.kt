@@ -215,8 +215,6 @@ fun ChatFlexBoxLayout(
 ) {
 
     val content = @Composable {
-//        println("🤡 ChatFlexBoxLayout() OVERLOAD3 @Composable text: ${chatRowData.text}")
-
         message()
         messageStat()
     }
@@ -247,12 +245,16 @@ internal fun ChatLayout(
         content = content
     ) { measurables: List<Measurable>, constraints: Constraints ->
 
-//        println("⚠️ ChatLayout() constraints: $constraints")
+        println("⚠️ ChatLayout() constraints: $constraints")
 
         val placeables: List<Placeable> = measurables.map { measurable ->
+            // 🔥🔥 Using minWidth = 0 is important because at second Layout call
+            // minWidth is set such as
+            // Constraints(minWidth = 529, maxWidth = 843, minHeight = 0, maxHeight = Infinity)
+            // So end up having Composables at least 529 for instance which causes them to overflow
             measurable.measure(constraints.copy(minWidth = 0))
+//          measurable.measure(constraints)
         }
-
 
         // We can have either only message or
         // message + container with message date + receive status
@@ -276,7 +278,7 @@ internal fun ChatLayout(
         chatRowData.parentWidth =
             chatRowData.rowWidth.coerceAtLeast(minimumValue = constraints.minWidth)
 
-//        println("⚠️⚠️ ChatLayout() after calculation-> CHAT_ROW_DATA: $chatRowData")
+        println("⚠️⚠️ ChatLayout() after calculation-> CHAT_ROW_DATA: $chatRowData")
 
         // Send measurement results if requested by Composable
         onMeasure?.invoke(chatRowData)
@@ -284,7 +286,7 @@ internal fun ChatLayout(
         layout(width = chatRowData.parentWidth, height = chatRowData.rowHeight) {
 
 //            println(
-//                "⚠️⚠️⚠️ ChatLayout()-> layout() status x: ${chatRowData.parentWidth - (status?.width ?: 0)}, " +
+//                "⚠️⚠️⚠️ ChatLayout()-> layout() status width:${status?.width},  x: ${chatRowData.parentWidth - (status?.width ?: 0)}, " +
 //                        "y: ${chatRowData.rowHeight - (status?.height ?: 0)}\n\n"
 //            )
 

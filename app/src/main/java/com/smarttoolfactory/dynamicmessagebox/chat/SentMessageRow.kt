@@ -34,8 +34,6 @@ fun SentMessageRow(
     messageStatus: MessageStatus
 ) {
 
-    println("🚕 SentMessageRow() ROOT text: $text")
-
     // Whole column that contains chat bubble and padding on start or end
     Column(
         horizontalAlignment = Alignment.End,
@@ -54,8 +52,6 @@ fun SentMessageRow(
                 .clickable { },
 
             content = {
-
-                println("🚕🚗 SentMessageRow() SubcomposeColumn() text: $text")
 
                 // 💬 Quoted message
                 if (quotedMessage != null || quotedImage != null) {
@@ -110,11 +106,7 @@ fun SentMessageRowAlt1(
     messageTime: String,
     messageStatus: MessageStatus
 ) {
-
     val chatRowData = remember { ChatRowData() }
-
-    println("🚛 SentMessageRowAlt1() ROOT text: $text")
-
 
     // Whole column that contains chat bubble and padding on start or end
     Column(
@@ -137,8 +129,6 @@ fun SentMessageRowAlt1(
                 .clickable { },
 
             content = {
-
-                println("🚛🏎 SentMessageRowAlt1() text: $text")
 
                 // 💬 Quoted message
                 if (quotedMessage != null || quotedImage != null) {
@@ -202,9 +192,6 @@ fun SentMessageRowAlt2(
     messageStatus: MessageStatus
 ) {
 
-    println("🚙 SentMessageRowAlt2() ROOT text: $text")
-
-
     // Whole column that contains chat bubble and padding on start or end
     Column(
         horizontalAlignment = Alignment.End,
@@ -224,9 +211,6 @@ fun SentMessageRowAlt2(
                 .clickable { },
 
             mainContent = {
-
-                println("🚙🚌 SentMessageRowAlt2() MAIN CONTENT text: $text")
-
                 // 💬 Quoted message
                 if (quotedMessage != null || quotedImage != null) {
                     QuotedMessage(
@@ -277,7 +261,6 @@ fun SentMessageRowAlt3(
     messageStatus: MessageStatus
 ) {
 
-    println("🚗 SentMessageRowAlt3() ROOT text: $text")
     // Whole column that contains chat bubble and padding on start or end
     Column(
         horizontalAlignment = Alignment.End,
@@ -297,8 +280,6 @@ fun SentMessageRowAlt3(
                 .clickable { },
 
             mainContent = {
-
-                println("🚗🚛 SentMessageRowAlt3() text: $text")
 
                 // 💬 Quoted message
                 if (quotedMessage != null || quotedImage != null) {

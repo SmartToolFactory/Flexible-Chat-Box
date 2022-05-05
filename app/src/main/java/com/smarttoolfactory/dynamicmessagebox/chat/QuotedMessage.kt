@@ -1,6 +1,7 @@
 package com.smarttoolfactory.dynamicmessagebox.chat
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -13,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.Placeable
@@ -45,7 +47,7 @@ fun QuotedMessage(
     println("🥶 QuotedMessageAlt() quotedMessage: $quotedMessage, quotedImage: $quotedImage, color: $color")
     QuoteImageRow(modifier = modifier,
         content = {
-            Row {
+            Row(modifier=Modifier.background(Color.Green)) {
 
                 Surface(
                     color = color,
@@ -130,11 +132,11 @@ private fun QuoteImageRow(
         }
     }
 
-//    println("⛺️ CustomRow() START...")
+//    println("⛺️ QuoteImageRow() START...")
 
     Layout(modifier = modifier, content = finalContent) { measurables, constraints ->
 
-        println("⛺️ CustomRow() Layout measurables: ${measurables.size}, constraints: $constraints")
+        println("⛺⛺️️ QuoteImageRow() Layout measurables: ${measurables.size}, constraints: $constraints")
 
         var imageIndex = -1
 
@@ -142,17 +144,19 @@ private fun QuoteImageRow(
 
             if (measurable.layoutId == "image") {
                 imageIndex = index
-//                println("🍭CustomRow() CUSTOM ROW INDEX: $imageIndex")
             }
 
+            // 🔥🔥 Using minWidth = 0 is important because at second pass of SubcomposeLayout
+            // minWidth such as
+            // Constraints(minWidth = 529, maxWidth = 843, minHeight = 0, maxHeight = Infinity)
+            // So end up having Composables at least 529 for instance which causes them to overflow
             measurable.measure(constraints = constraints.copy(minWidth = 0))
-
+//            measurable.measure(constraints)
         }
 
         val size =
             placeables.fold(IntSize.Zero) { current: IntSize, placeable: Placeable ->
 
-                println("🏠 CustomRow() PLACEABLE width: ${placeable.width}, height: ${placeable.height}")
                 IntSize(
                     width = current.width + placeable.width,
                     height = maxOf(current.height, placeable.height)
@@ -167,6 +171,7 @@ private fun QuoteImageRow(
             // bigger than 0 initially, and pushes layout right
             var x = 0
 
+
             placeables.forEachIndexed { index: Int, placeable: Placeable ->
                 if (index != imageIndex) {
                     placeable.placeRelative(x, 0)
@@ -174,6 +179,10 @@ private fun QuoteImageRow(
                 } else {
                     placeable.placeRelative(width - placeable.width, 0)
                 }
+
+                println("⛺⛺️⛺️️ QuoteImageRow() Layout width: $width, x: $x, " +
+                        "(width - placeable.width): ${width - placeable.width}")
+
             }
         }
     }

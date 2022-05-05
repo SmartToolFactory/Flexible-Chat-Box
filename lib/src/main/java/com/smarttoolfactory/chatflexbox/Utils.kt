@@ -35,14 +35,14 @@ internal fun calculateChatWidthAndHeight(
         val parentWidth = chatRowData.parentWidth
 
         val padding = (message.measuredWidth - chatRowData.textWidth) / 2
-        println(
-            "🌽 calculateChatWidthAndHeight() text: ${chatRowData.text}" +
-                    "lineCount: $lineCount, parentWidth: $parentWidth, lastLineWidth: $lastLineWidth\n" +
-                    "MESSAGE width: ${message.width}, measured: ${message.measuredWidth}," +
-                    " textWidth: ${chatRowData.textWidth} padding: $padding\n" +
-                    "STATUS width: ${status.width}, measured: ${status.measuredWidth}, " +
-                    "(stat +last): ${lastLineWidth + status.measuredWidth}\n"
-        )
+//        println(
+//            "🌽 calculateChatWidthAndHeight() text: ${chatRowData.text}" +
+//                    "lineCount: $lineCount, parentWidth: $parentWidth, lastLineWidth: $lastLineWidth\n" +
+//                    "MESSAGE width: ${message.width}, measured: ${message.measuredWidth}," +
+//                    " textWidth: ${chatRowData.textWidth} padding: $padding\n" +
+//                    "STATUS width: ${status.width}, measured: ${status.measuredWidth}, " +
+//                    "(stat +last): ${lastLineWidth + status.measuredWidth}\n"
+//        )
 
         // Multiple lines and last line and status is longer than text size and right padding
         if (lineCount > 1 && lastLineWidth + status.measuredWidth >= chatRowData.textWidth + padding) {

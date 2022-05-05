@@ -36,9 +36,6 @@ fun ReceivedMessageRow(
     quotedImage: Int? = null,
     messageTime: String,
 ) {
-
-    println("🚕 ReceivedMessageRow() ROOT text: $text")
-
     // Whole column that contains chat bubble and padding on start or end
     Column(
         horizontalAlignment = Alignment.Start,
@@ -57,9 +54,6 @@ fun ReceivedMessageRow(
                 .background(Color.White)
                 .clickable { },
             content = {
-
-                println("🚕🚗 ReceivedMessageRow() SubcomposeColumn() text: $text")
-
                 RecipientName(
                     name = recipientRegisteredName,
                     isName = isRecipientRegistered,
@@ -186,8 +180,6 @@ fun ReceivedMessageRowAlt2(
     messageTime: String,
 ) {
 
-    println("🚄 SentMessageRowAlt2() ROOT text: $text")
-
     // Whole column that contains chat bubble and padding on start or end
     Column(
         horizontalAlignment = Alignment.Start,
@@ -206,8 +198,6 @@ fun ReceivedMessageRowAlt2(
                 .background(Color.White)
                 .clickable { },
             mainContent = {
-
-                println("🚄🚀 SentMessageRowAlt2() SubcomposeColumn() text: $text")
 
                 Column {
 
