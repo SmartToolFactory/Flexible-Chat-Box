@@ -1,13 +1,13 @@
 ## Flexible Chat Row and Resizable SubcomposeLayout
 
 
-Flexible chat row,  `ChatFlexBoxLayout`, that positions its elements based on number of lines message text has,
+Flexible chat row, `ChatFlexBoxLayout`, positions its elements based on number of lines message text has,
 parent width, message and message status width.
-And `SubcomposeColumn` created using **SubComposeLayout** which remeasures its children based on
+`SubcomposeColumn` created using **SubComposeLayout** which remeasures its children based on
 longest children. This is useful for matching quote message and message length after position
-calculation. These two composables are useful for creating dynamic message rows that positions children and positions message, message date and message status.
+calculation. These two composables together create dynamic message rows that position children, and positions message, message date and message status.
 
-There are 3 implementation files to try `ChatFlexBoxLayout`, and `SubcomposeColumn` which are
+There are 3 implementation files to to try out `ChatFlexBoxLayout`, and `SubcomposeColumn` are
 `DemoFullChat.kt`, `DemoChatAndWidth.kt`, and `DemoResizableColumn.kt`
 
 | Full Chat      | Chat Width   | Resizable|
@@ -16,8 +16,8 @@ There are 3 implementation files to try `ChatFlexBoxLayout`, and `SubcomposeColu
 
 
 ### ChatFlexBoxLayout
-This is a layout that measures and positions message and another container that uses message
-date or message date and message received status like messaging apps does.
+This layout  measures and positions message, and another container that uses message
+date or message date + message received status like messaging apps do.
 
 There are 4 possible conditions to position message and stats
 
@@ -129,8 +129,8 @@ to set text properties to this data
 
 ## SubcomposeColumn
 
-This is a layout that uses SubcomposeLayout to find longest child and then remeasure again
-and set every child to this max width. There are 2 overloads of this Composable if
+This layout uses SubcomposeLayout to find longest child then remeasure its children
+and set every child to max width. There are 2 overloads of this Composable if
 you only need to use direct 2 children you can use which returns size of main component
 as `IntSize`
 
