@@ -28,7 +28,7 @@ There are 4 possible conditions to position message and stats
 
 #### Usage
 
-```
+```kotlin
 ChatFlexBoxLayout(
     modifier: Modifier = Modifier,
     text: String,
@@ -53,7 +53,7 @@ Since `TextLayout` is required to get text length, last line width and other pro
 `onMeasure` returns internal layout data of this row, that's how i set colors differently in **chat width sample**.
 `messageStat` is composable that contains message text or status if you need to.
 
-```
+```kotlin
     ChatFlexBoxLayout(
         modifier = Modifier
             .background(color, shape = RoundedCornerShape(8.dp))
@@ -79,7 +79,7 @@ Since `TextLayout` is required to get text length, last line width and other pro
 
 Another overload of `ChatFlexBoxLayout` takes two Composables as arguments which 
 custom **message** Composable can be used instead of String or AnnotatedString.
-```
+```kotlin
 @Composable
 fun ChatFlexBoxLayout(
     modifier: Modifier,
@@ -94,8 +94,7 @@ fun ChatFlexBoxLayout(
 
 Use with `remember { ChatRowData() }` to provide stats and invoke `measureText(chatRowData, it)`
 to set text properties to this data
-```
-
+```kotlin
             val chatRowData = remember { ChatRowData() }
 
             ChatFlexBoxLayout(
@@ -135,7 +134,7 @@ and set every child to this max width. There are 2 overloads of this Composable 
 you only need to use direct 2 children you can use which returns size of main component
 as `IntSize`
 
-```
+```kotlin
 fun SubcomposeColumn(
     modifier: Modifier = Modifier,
     mainContent: @Composable () -> Unit = {},
@@ -147,7 +146,7 @@ fun SubcomposeColumn(
 
 This overloaded function is suitable for layout with any number of children
 
-```
+```kotlin
 @Composable
 fun SubcomposeColumn(
     modifier: Modifier = Modifier,

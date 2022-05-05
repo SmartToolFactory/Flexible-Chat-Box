@@ -20,7 +20,6 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -135,7 +134,7 @@ private fun QuoteImageRow(
 
     Layout(modifier = modifier, content = finalContent) { measurables, constraints ->
 
-//        println("⛺️ CustomRow() Layout measurables: ${measurables.size}, constraints: $constraints")
+        println("⛺️ CustomRow() Layout measurables: ${measurables.size}, constraints: $constraints")
 
         var imageIndex = -1
 
@@ -145,13 +144,15 @@ private fun QuoteImageRow(
                 imageIndex = index
 //                println("🍭CustomRow() CUSTOM ROW INDEX: $imageIndex")
             }
-            measurable.measure(Constraints(0, constraints.maxWidth, 0, constraints.maxHeight))
+
+            measurable.measure(constraints = constraints.copy(minWidth = 0))
+
         }
 
         val size =
             placeables.fold(IntSize.Zero) { current: IntSize, placeable: Placeable ->
 
-//                println("🏠 CustomRow() PLACEABLE width: ${placeable.width}, height: ${placeable.height}")
+                println("🏠 CustomRow() PLACEABLE width: ${placeable.width}, height: ${placeable.height}")
                 IntSize(
                     width = current.width + placeable.width,
                     height = maxOf(current.height, placeable.height)
@@ -161,10 +162,10 @@ private fun QuoteImageRow(
 
         val width = size.width.coerceAtLeast(constraints.minWidth)
 
-        var x = 0
         layout(width, size.height) {
-
-//            println("🚐 CustomRow() layout() TOTAL SIZE: $size, width: $width")
+            // 🔥🔥 layout gets called twice, if var x= 0 is outside, second call gets x width
+            // bigger than 0 initially, and pushes layout right
+            var x = 0
 
             placeables.forEachIndexed { index: Int, placeable: Placeable ->
                 if (index != imageIndex) {

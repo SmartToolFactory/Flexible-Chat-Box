@@ -71,7 +71,7 @@ fun ChatFlexBoxLayout(
     val chatRowData = remember { ChatRowData() }
     val content = @Composable {
 
-        println("👀 ChatFlexBoxLayout OVERLOAD @Composable text: $text")
+//        println("👀 ChatFlexBoxLayout OVERLOAD @Composable text: $text")
 
         Message(
             modifier = messageModifier,
@@ -155,7 +155,7 @@ fun ChatFlexBoxLayout(
 
     val content = @Composable {
 
-        println("🔥 ChatFlexBoxLayout() OVERLOAD2 @Composable text: ${text.text}")
+//        println("🔥 ChatFlexBoxLayout() OVERLOAD2 @Composable text: ${text.text}")
 
         Message(
             modifier = messageModifier,
@@ -215,7 +215,7 @@ fun ChatFlexBoxLayout(
 ) {
 
     val content = @Composable {
-        println("🤡 ChatFlexBoxLayout() OVERLOAD3 @Composable text: ${chatRowData.text}")
+//        println("🤡 ChatFlexBoxLayout() OVERLOAD3 @Composable text: ${chatRowData.text}")
 
         message()
         messageStat()
@@ -247,13 +247,12 @@ internal fun ChatLayout(
         content = content
     ) { measurables: List<Measurable>, constraints: Constraints ->
 
-        println("⚠️ ChatLayout() constraints: $constraints")
+//        println("⚠️ ChatLayout() constraints: $constraints")
 
         val placeables: List<Placeable> = measurables.map { measurable ->
-            // Measure each child maximum constraints since message can cover all of the available
-            // space by parent
-            measurable.measure(Constraints(0, constraints.maxWidth))
+            measurable.measure(constraints.copy(minWidth = 0))
         }
+
 
         // We can have either only message or
         // message + container with message date + receive status
@@ -277,17 +276,17 @@ internal fun ChatLayout(
         chatRowData.parentWidth =
             chatRowData.rowWidth.coerceAtLeast(minimumValue = constraints.minWidth)
 
-        println("⚠️⚠️ ChatLayout() after calculation-> CHAT_ROW_DATA: $chatRowData")
+//        println("⚠️⚠️ ChatLayout() after calculation-> CHAT_ROW_DATA: $chatRowData")
 
         // Send measurement results if requested by Composable
         onMeasure?.invoke(chatRowData)
 
         layout(width = chatRowData.parentWidth, height = chatRowData.rowHeight) {
 
-            println(
-                "⚠️⚠️⚠️ ChatLayout()-> layout() status x: ${chatRowData.parentWidth - (status?.width ?: 0)}, " +
-                        "y: ${chatRowData.rowHeight - (status?.height ?: 0)}\n\n"
-            )
+//            println(
+//                "⚠️⚠️⚠️ ChatLayout()-> layout() status x: ${chatRowData.parentWidth - (status?.width ?: 0)}, " +
+//                        "y: ${chatRowData.rowHeight - (status?.height ?: 0)}\n\n"
+//            )
 
             message.placeRelative(0, 0)
             // set left of status relative to parent because other elements could result this row

@@ -30,7 +30,6 @@ fun DemoFullChat() {
             .background(Color(0xffFBE9E7))
     ) {
 
-        ChatAppbar()
 
         val scrollState = rememberLazyListState()
         val coroutineScope = rememberCoroutineScope()
@@ -52,6 +51,7 @@ fun DemoFullChat() {
                     1 -> {
                         SentMessageRow(
                             text = message.message,
+                            quotedMessage = "Quote message",
                             messageTime = sdf.format(System.currentTimeMillis()),
                             messageStatus = messageStatus
                         )
@@ -60,6 +60,7 @@ fun DemoFullChat() {
                     2 -> {
                         ReceivedMessageRow(
                             text = message.message,
+                            quotedMessage = "Quote",
                             messageTime = sdf.format(System.currentTimeMillis()),
                         )
                     }
