@@ -1,7 +1,6 @@
 package com.smarttoolfactory.dynamicmessagebox.chat
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -14,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.Placeable
@@ -47,7 +45,7 @@ fun QuotedMessage(
     println("🥶 QuotedMessageAlt() quotedMessage: $quotedMessage, quotedImage: $quotedImage, color: $color")
     QuoteImageRow(modifier = modifier,
         content = {
-            Row(modifier=Modifier.background(Color.Green)) {
+            Row {
 
                 Surface(
                     color = color,

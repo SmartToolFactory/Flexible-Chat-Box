@@ -10,8 +10,8 @@ calculation. These two composables together create dynamic message rows that pos
 There are 3 implementation files to to try out `ChatFlexBoxLayout`, and `SubcomposeColumn` are
 `DemoFullChat.kt`, `DemoChatAndWidth.kt`, and `DemoResizableColumn.kt`
 
-| Full Chat      | Chat Width   | Resizable|
-| ----------|-----------| -----------|
+| Full Chat                                               | Chat Width                                               | Resizable                                               |
+|---------------------------------------------------------|----------------------------------------------------------|---------------------------------------------------------|
 | <img src="./screenshots/full_chat_implementation.gif"/> | <img src="./screenshots/chat_width_implementation.png"/> | <img src="./screenshots/resizable_implementation.gif"/> |
 
 
